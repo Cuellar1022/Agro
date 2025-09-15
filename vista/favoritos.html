@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMatch - Mis Favoritos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="../assent/css/favoritos.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:40px;">
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Volver al Dashboard
+            </button>
+            <button class="btn btn-primary" onclick="refreshFavoritos()">
+                <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <div>
+                <i class="fas fa-heart"></i>
+                <span>Mis Favoritos</span>
+            </div>
+            <div class="favoritos-count">
+                <span id="favoritosCount">0</span> ofertas guardadas
+            </div>
+        </div>
+
+        <!-- Filtros y controles -->
+        <div class="controls-section">
+            <div class="search-container">
+                <input type="text" id="searchFavoritos" placeholder="Buscar en favoritos..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div class="filter-controls">
+                <select id="estadoFilter" class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="activa">Ofertas activas</option>
+                    <option value="expirada">Ofertas expiradas</option>
+                    <option value="retirada">Ofertas retiradas</option>
+                </select>
+
+                <select id="tipoFilter" class="filter-select">
+                    <option value="">Todos los tipos</option>
+                    <option value="Cosecha">Cosecha</option>
+                    <option value="Siembra">Siembra</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Recolección">Recolección</option>
+                </select>
+
+                <select id="ordenFilter" class="filter-select">
+                    <option value="fecha_desc">Más recientes primero</option>
+                    <option value="fecha_asc">Más antiguos primero</option>
+                    <option value="pago_desc">Mayor pago primero</option>
+                    <option value="pago_asc">Menor pago primero</option>
+                </select>
+            </div>
+
+            <div class="bulk-actions">
+                <button class="bulk-btn" onclick="selectAll()">
+                    <i class="fas fa-check-square"></i> Seleccionar todo
+                </button>
+                <button class="bulk-btn danger" onclick="removeSelected()" id="removeSelectedBtn" disabled>
+                    <i class="fas fa-trash"></i> Eliminar seleccionados
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de favoritos -->
+        <div class="favoritos-list" id="favoritosList">
+            <!-- Los favoritos se cargarán dinámicamente -->
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            <button class="pagination-btn" onclick="previousPage()">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span class="pagination-info">Página 1 de 1</span>
+            <button class="pagination-btn" onclick="nextPage()">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar acción</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <p>¿Estás seguro de que deseas realizar esta acción?</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-danger" onclick="confirmAction()" id="confirmBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de detalles de oferta -->
+    <div class="modal-backdrop" id="detalleModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="detalleTitle">Detalles de la Oferta</h3>
+                <button class="modal-close" onclick="closeDetalleModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="detalleBody">
+                <!-- Contenido del modal se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de notificaciones -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../js/favoritos.js"></script>
+</body>
+</html>

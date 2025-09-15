@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - AgroMach</title>
+    <link rel="stylesheet" href="/assent/css/perfil-trabajador.css">
+</head>
+<body>
+    <!-- Loading inicial -->
+    <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+        <div class="profile-loading">
+            <div class="loading"></div>
+            <p>Cargando perfil...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <!-- Botón de volver al dashboard corregido -->
+            <button class="btn btn-secondary" onclick="goBackToDashboard()" style="margin-bottom: 15px;">
+                ⬅️ Volver al Dashboard
+            </button>
+            
+            <!-- Input oculto para subir foto de perfil -->
+            <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;">
+            
+            <!-- Foto de perfil clickeable -->
+            <div class="profile-photo" id="profilePhoto" title="Haz clic para cambiar tu foto de perfil" onclick="changeProfilePhoto()">👤</div>
+            
+            <h1 class="profile-name" id="profileName">Cargando...</h1>
+            <p class="profile-role" id="profileRole">Cargando información...</p>
+            
+            <!-- El botón de reportar se agregará dinámicamente aquí cuando se visualice el perfil de otro usuario -->
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('info')">📋 Información Personal</button>
+            <button class="tab" onclick="showTab('edit')">✏️ Editar Perfil</button>
+            <button class="tab" onclick="showTab('ratings')">⭐ Calificar Empleador</button>
+            <button class="tab" onclick="showTab('documents')">📄 Documentos</button>
+        </div>
+
+        <!-- TAB: INFORMACIÓN PERSONAL -->
+        <div id="info" class="tab-content active">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔍 Información Personal</h3>
+                    <div class="info-item">
+                        <span class="info-label">Nombre completo:</span>
+                        <span class="info-value" id="displayName">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Correo electrónico:</span>
+                        <span class="info-value" id="displayEmail">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Teléfono:</span>
+                        <span class="info-value" id="displayPhone">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ubicación:</span>
+                        <span class="info-value" id="displayLocation">No especificado</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>💼 Información Profesional</h3>
+                    <div class="info-item">
+                        <span class="info-label">Rol:</span>
+                        <span class="info-value" id="displayRole">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Área de trabajo:</span>
+                        <span class="info-value" id="displayArea">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Especialización:</span>
+                        <span class="info-value" id="displaySpecialty">No especificado</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Experiencia:</span>
+                        <span class="info-value" id="displayExperience">No especificado</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>📊 Estadísticas</h3>
+                    <div class="info-item">
+                        <span class="info-label">Trabajos completados:</span>
+                        <span class="info-value" id="displayJobsCompleted">Cargando...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Calificación promedio:</span>
+                        <span class="info-value" id="displayRating">
+                            <span style="color: #ffc107;">⭐⭐⭐⭐⭐</span> Cargando...
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span>
+                        <span class="info-value" id="displayStatus" style="color: #28a745;">Activo</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Miembro desde:</span>
+                        <span class="info-value" id="displayMemberSince">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: EDITAR PERFIL -->
+        <div id="edit" class="tab-content">
+            <h2 style="margin-bottom: 25px; color: #495057;">Editar Información del Perfil</h2>
+            
+            <!-- Sección para cambiar foto de perfil -->
+            <div class="info-card" style="margin-bottom: 25px;">
+                <h3>📷 Foto de Perfil</h3>
+                <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #28a745; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f8f9fa;" id="editProfilePhotoPreview">
+                        👤
+                    </div>
+                    <div>
+                        <button type="button" class="btn" onclick="changeProfilePhoto()">📤 Cambiar Foto</button>
+                        <p style="color: #6c757d; font-size: 12px; margin: 5px 0 0 0;">
+                            Formatos: PNG, JPG, JPEG, GIF | Tamaño máximo: 5MB
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="profileForm">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>👤 Datos Personales</h3>
+                        <div class="form-group">
+                            <label class="form-label">Nombre completo *</label>
+                            <input type="text" class="form-control" id="editName" placeholder="Ingresa tu nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="editEmail" readonly style="background: #f8f9fa; cursor: not-allowed;" title="El correo no se puede cambiar">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="editPhone" placeholder="Ej: +57 300 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Red social / Contacto adicional</label>
+                            <input type="text" class="form-control" id="editSocialMedia" placeholder="Ej: @usuario o enlace">
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>🌾 Información Profesional</h3>
+                        <div class="form-group">
+                            <label class="form-label">Área de trabajo</label>
+                            <select class="form-control" id="editArea">
+                                <option value="">Selecciona un área</option>
+                                <option value="Agricultura">Agricultura</option>
+                                <option value="Ganadería">Ganadería</option>
+                                <option value="Silvicultura">Silvicultura</option>
+                                <option value="Pesca">Pesca</option>
+                                <option value="Agroindustria">Agroindustria</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Especialización</label>
+                            <input type="text" class="form-control" id="editSpecialty" placeholder="Ej: Cosecha de café, Manejo de ganado">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Años de experiencia</label>
+                            <input type="number" class="form-control" id="editExperience" min="0" max="50" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nivel educativo</label>
+                            <select class="form-control" id="editEducation">
+                                <option value="">Selecciona tu nivel</option>
+                                <option value="Primaria">Primaria</option>
+                                <option value="Secundaria">Secundaria</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Tecnólogo">Tecnólogo</option>
+                                <option value="Profesional">Profesional</option>
+                                <option value="Postgrado">Postgrado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button type="submit" class="btn">💾 Guardar Cambios</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelEdit()">❌ Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TAB: CALIFICAR EMPLEADOR -->
+        <div id="ratings" class="tab-content">
+            <h2 style="margin-bottom: 25px; color: #495057;">Calificar Empleador</h2>
+            
+            <!-- Formulario para nueva calificación -->
+            <div class="rating-form">
+                <h4>💬 Calificar mi último empleador</h4>
+                <form id="ratingForm">
+                    <div class="form-group">
+                        <label class="form-label">Seleccionar empleador</label>
+                        <select class="form-control" id="employerSelect" required>
+                            <option value="">Selecciona el empleador a calificar</option>
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Calificación (1-5 estrellas)</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star-input" data-rating="1">★</span>
+                            <span class="star-input" data-rating="2">★</span>
+                            <span class="star-input" data-rating="3">★</span>
+                            <span class="star-input" data-rating="4">★</span>
+                            <span class="star-input" data-rating="5">★</span>
+                        </div>
+                        <div id="ratingDisplay" style="margin-top: 10px; color: #6c757d; font-size: 14px;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Comentario sobre la experiencia</label>
+                        <textarea class="form-control" id="ratingComment" rows="4" 
+                                placeholder="Describe tu experiencia trabajando con este empleador..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">📤 Enviar Calificación</button>
+                </form>
+            </div>
+
+            <!-- Historial de calificaciones dadas -->
+            <div style="margin-top: 30px;">
+                <h3 style="color: #495057; margin-bottom: 20px;">📋 Mis calificaciones enviadas</h3>
+                <div id="sentRatings">
+                    <!-- Las calificaciones se cargarán dinámicamente -->
+                    <div class="empty-state">
+                        <p>No has enviado calificaciones aún</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DOCUMENTOS -->
+        <div id="documents" class="tab-content">
+            <h2 style="margin-bottom: 25px; color: #495057;">Gestión de Documentos</h2>
+            
+            <div class="info-card" style="margin-bottom: 25px;">
+                <h3>📋 Estado de Documentos</h3>
+                <p style="color: #6c757d; margin-bottom: 15px;">Mantén tus documentos actualizados para aumentar tu credibilidad en la plataforma.</p>
+                <div class="info-item">
+                    <span class="info-label">Documentos subidos:</span>
+                    <span class="info-value" id="documentCount">0/2 completos</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado del perfil:</span>
+                    <span class="info-value" id="profileStatus" style="color: #dc3545;">⏳ Pendiente de verificación</span>
+                </div>
+            </div>
+
+            <div class="documents-grid">
+                <!-- Curriculum Vitae -->
+                <div class="document-card" id="cvCard">
+                    <div class="document-icon">📋</div>
+                    <h4>Currículum Vitae</h4>
+                    <p style="color: #6c757d; margin: 10px 0;" id="cvFileName">No subido</p>
+                    <div id="cvStatus" style="font-size: 14px; margin-bottom: 15px;">📁 Haz clic para subir</div>
+                    <input type="file" id="cvInput" accept=".pdf,.doc,.docx" style="display: none;">
+                    <button class="btn" style="font-size: 14px; padding: 8px 16px;" onclick="uploadDocument('CV')">📤 Subir CV</button>
+                </div>
+
+                <!-- Certificaciones -->
+                <div class="document-card" id="certCard">
+                    <div class="document-icon">🏆</div>
+                    <h4>Certificaciones</h4>
+                    <p style="color: #6c757d; margin: 10px 0;" id="certFileName">No subido</p>
+                    <div id="certStatus" style="font-size: 14px; margin-bottom: 15px;">📁 Haz clic para subir</div>
+                    <input type="file" id="certInput" accept=".pdf,.doc,.docx,.jpg,.png" style="display: none;">
+                    <button class="btn" style="font-size: 14px; padding: 8px 16px;" onclick="uploadDocument('Certificaciones')">📤 Subir Certificación</button>
+                </div>
+
+                <!-- Documento Adicional -->
+                <div class="document-card" id="additionalCard">
+                    <div class="document-icon">📁</div>
+                    <h4>Documento Adicional</h4>
+                    <p style="color: #6c757d; margin: 10px 0;" id="additionalFileName">Opcional</p>
+                    <div id="additionalStatus" style="font-size: 14px; margin-bottom: 15px;">📁 Haz clic para subir</div>
+                    <input type="file" id="additionalInput" accept=".pdf,.doc,.docx,.jpg,.png" style="display: none;">
+                    <button class="btn" style="font-size: 14px; padding: 8px 16px;" onclick="uploadDocument('Adicional')">📤 Subir Documento</button>
+                </div>
+            </div>
+
+            <!-- Lista de archivos subidos -->
+            <div id="uploadedFiles" style="margin-top: 30px;">
+                <h3 style="color: #495057; margin-bottom: 15px;">📂 Archivos subidos</h3>
+                <div id="filesList" style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <p style="color: #6c757d; text-align: center;">No hay archivos subidos aún</p>
+                </div>
+            </div>
+
+            <div style="background: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 8px; padding: 15px; margin-top: 25px;">
+                <h4 style="color: #0066cc; margin-bottom: 10px;">ℹ️ Información sobre documentos</h4>
+                <ul style="color: #004d99; padding-left: 20px;">
+                    <li>Tamaño máximo: 5 MB por archivo</li>
+                    <li>Formatos aceptados: PDF, DOC, DOCX, JPG, PNG</li>
+                    <li>Los documentos son revisados para verificación</li>
+                    <li>Mantén tus certificaciones actualizadas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container para mensajes -->
+    <div id="messageContainer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/perfil-trabajador.js"></script>
+    
+    <!-- Script para inicialización -->
+    <script>
+        // Variables globales necesarias
+        let currentViewingUserId = null;
+        let isOwnProfile = true;
+        
+        // Detectar si hay parámetro userId en la URL para mostrar perfil de otro usuario
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        
+        if (userId) {
+            // Estamos viendo el perfil de otro usuario
+            console.log('Cargando perfil del usuario:', userId);
+            currentViewingUserId = parseInt(userId);
+            isOwnProfile = false;
+        }
+
+        // Función para cambiar foto de perfil
+        function changeProfilePhoto() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    uploadProfilePhoto(file);
+                }
+            };
+            input.click();
+        }
+
+        // Función para subir foto de perfil
+        function uploadProfilePhoto(file) {
+            const formData = new FormData();
+            formData.append('profilePhoto', file);
+            
+            fetch('/api/upload-profile-photo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Foto actualizada correctamente');
+                    location.reload(); // Recargar para ver la nueva foto
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error subiendo la foto');
+            });
+        }
+
+        // Función para subir documento
+        function uploadDocument(docType) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.pdf,.doc,.docx,.png,.jpg,.jpeg';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('document', file);
+                    formData.append('docType', docType);
+                    
+                    fetch('/api/upload-document', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Documento subido correctamente');
+                            if (typeof loadDocuments === 'function') {
+                                loadDocuments(); // Recargar lista de documentos si la función existe
+                            }
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error subiendo el documento');
+                    });
+                }
+            };
+            input.click();
+        }
+
+        // Función para volver al dashboard
+        function goBackToDashboard() {
+            // Verificar qué tipo de usuario es para redirigir correctamente
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        if (data.user.rol === 'Trabajador') {
+                            window.location.href = '/vista/index-trabajador.html';
+                        } else if (data.user.rol === 'Agricultor') {
+                            window.location.href = '/vista/dashboard-agricultor.html';
+                        } else {
+                            // Por defecto, ir al dashboard de trabajador
+                            window.location.href = '/vista/index-trabajador.html';
+                        }
+                    } else {
+                        // Si no hay sesión, ir al login
+                        window.location.href = '/vista/login-trabajador.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // En caso de error, redirigir al dashboard de trabajador por defecto
+                    window.location.href = '/vista/index-trabajador.html';
+                });
+        }
+
+        // Ocultar loading cuando todo esté cargado
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

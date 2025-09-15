@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMatch - Dashboard Agricultor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="../assent/css/index-agricultor.css">
+    <!-- Leaflet CSS y JS (Reemplazo de Google Maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Overlay para cerrar dropdown -->
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:40px;">
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="createNewOffer()">
+                    <i class="fas fa-plus"></i> Nueva Oferta
+                </button>
+                <div class="notification-icon" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                
+                <!-- MENÚ DE USUARIO -->
+                <div class="user-menu-container">
+                    <button class="profile-menu" onclick="toggleProfileMenu()" id="profileMenuBtn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <!-- Header del dropdown con info del usuario -->
+                        <div class="profile-dropdown-header">
+                            <div class="profile-dropdown-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-dropdown-name">Carlos González</div>
+                            <div class="profile-dropdown-role">
+                                <i class="fas fa-seedling"></i>
+                                <span>Agricultor</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Menú de opciones -->
+                        <div class="profile-dropdown-menu">
+                            <div class="profile-dropdown-item" onclick="viewProfile()">
+                                <div class="icon"><i class="fas fa-user-circle"></i></div>
+                                <span>Mi Perfil</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="viewSettings()">
+                                <div class="icon"><i class="fas fa-cog"></i></div>
+                                <span>Configuración</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="viewStatistics()">
+                                <div class="icon"><i class="fas fa-chart-bar"></i></div>
+                                <span>Estadísticas</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="viewHistory()">
+                                <div class="icon"><i class="fas fa-history"></i></div>
+                                <span>Historial</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="viewSupport()">
+                                <div class="icon"><i class="fas fa-question-circle"></i></div>
+                                <span>Ayuda y Soporte</span>
+                            </div>
+                            <div class="profile-dropdown-item logout" onclick="confirmLogout()">
+                                <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+                                <span>Cerrar Sesión</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="main-panel">
+                <button class="create-offer-btn" onclick="createNewOffer()">
+                    <i class="fas fa-plus"></i> Crear Nueva Oferta de Trabajo
+                </button>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Ofertas Activas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Trabajadores Contratados</div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    Mis Ofertas Publicadas
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-title">Fumigación de Cultivos - Sector Sur</div>
+                    <div class="offer-meta">
+                        <span class="offer-workers">👥 Trabajadores: 1/2 confirmados</span>
+                        <span class="status-badge status-active">Activa</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="viewApplications(this, 5)">
+                        <i class="fas fa-eye"></i> Ver Postulaciones (5)
+                    </button>
+                </div>
+
+                <div class="offer-card">
+                    <div class="offer-title">Cosecha de Café - Finca El Paraíso</div>
+                    <div class="offer-meta">
+                        <span class="offer-workers">👥 Trabajadores: 3/5 confirmados</span>
+                        <span class="status-badge status-active">Activa</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="viewApplications(this, 8)">
+                        <i class="fas fa-eye"></i> Ver Postulaciones (8)
+                    </button>
+                </div>
+            </div>
+
+            <div class="side-panel">
+                <div class="section-title">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Mapa de Ubicación
+                </div>
+                <!-- Nuevo mapa interactivo con Leaflet -->
+                <div id="map" style="height: 300px; border-radius: 15px; overflow: hidden; border: 2px solid #4a7c59; margin-bottom: 20px;"></div>
+
+                <div class="notifications">
+                    <div class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Notificaciones Recientes
+                    </div>
+                    
+                    <div class="notification-item" onclick="handleNotification(this)">
+                        <div class="notification-title">Nuevas postulaciones</div>
+                        <div class="notification-text">Tienes 2 trabajadores interesados en tu oferta de cosecha</div>
+                    </div>
+
+                    <div class="notification-item" onclick="handleNotification(this)">
+                        <div class="notification-title">Contrato próximo a finalizar</div>
+                        <div class="notification-text">El contrato de recolección termina mañana</div>
+                    </div>
+
+                    <div class="notification-item" onclick="handleNotification(this)">
+                        <div class="notification-title">Trabajador calificado</div>
+                        <div class="notification-text">Juan Pérez completó su trabajo con 5 estrellas ⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/index-agricultor.js"></script>
+</body>
+</html>

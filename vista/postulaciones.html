@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMatch - Mis Postulaciones</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="../assent/css/postulaciones.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:40px;">
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Volver al Dashboard
+            </button>
+            <button class="btn btn-primary" onclick="refreshPostulaciones()">
+                <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <i class="fas fa-paper-plane"></i>
+            <span>Mis Postulaciones</span>
+            <div class="auto-refresh">
+                <i class="fas fa-circle pulse-green"></i>
+                <span>Actualización en tiempo real</span>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="controls-section">
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="filterByStatus('')">
+                    <i class="fas fa-list"></i> Todas (24)
+                </button>
+                <button class="tab-btn" onclick="filterByStatus('Pendiente')">
+                    <i class="fas fa-hourglass-half"></i> Pendientes (8)
+                </button>
+                <button class="tab-btn" onclick="filterByStatus('Aceptada')">
+                    <i class="fas fa-check-circle"></i> Aceptadas (6)
+                </button>
+                <button class="tab-btn" onclick="filterByStatus('Rechazada')">
+                    <i class="fas fa-times-circle"></i> Rechazadas (5)
+                </button>
+                <button class="tab-btn" onclick="filterByStatus('Finalizada')">
+                    <i class="fas fa-flag-checkered"></i> Finalizadas (5)
+                </button>
+                <button class="tab-btn" onclick="filterByStatus('Favorito')">
+                    <i class="fas fa-heart"></i> Favoritos (3)
+                </button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="searchPostulaciones" placeholder="Buscar postulaciones..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <!-- Lista de postulaciones -->
+        <div class="postulaciones-list" id="postulacionesList">
+            <!-- Las postulaciones se cargarán dinámicamente -->
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            <button class="pagination-btn" onclick="previousPage()">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span class="pagination-info">Página 1 de 3</span>
+            <button class="pagination-btn" onclick="nextPage()">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de detalles -->
+    <div class="modal-backdrop" id="detalleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detalles de la Postulación</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido del modal se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de notificaciones -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../js/postulaciones.js"></script>
+</body>
+</html>

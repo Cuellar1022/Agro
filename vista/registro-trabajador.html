@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Trabajador - AgroMatch</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assent/css/login-trabajador.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sección izquierda con información -->
+        <div class="left-section">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>AgroMatch</span>
+                </div>
+                
+                <h1>¡Únete a AgroMatch!</h1>
+                <p>Crea tu cuenta y accede a las mejores oportunidades laborales en el sector agrícola</p>
+                
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-search"></i>
+                        <span>Busca empleos cerca de ti</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Guarda tus ofertas favoritas</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Recibe alertas personalizadas</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Gestiona tu CV profesional</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección derecha con formulario -->
+        <div class="right-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Registro Trabajador</h2>
+                    <p>Completa tus datos para crear tu cuenta</p>
+                </div>
+
+                <!-- FORMULARIO CONECTADO A PYTHON -->
+                <form class="login-form" id="registerForm" action="http://localhost:5000/registro.py" method="POST">
+                    
+                    <!-- Campo oculto para el rol -->
+                    <input type="hidden" name="rol" value="Trabajador" id="hiddenRol">
+                    
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required 
+                                   pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                        </div>
+                    </div>
+
+                    <!-- Apellido -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="apellido" name="apellido" placeholder="Apellido" required 
+                                   pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras y espacios">
+                        </div>
+                    </div>
+
+                    <!-- Correo electrónico -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="correo" name="correo" placeholder="Correo" required>
+                        </div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-phone input-icon"></i>
+                            <input type="text" id="telefono" name="telefono" placeholder="Teléfono">
+                        </div>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" placeholder="Contraseña" required minlength="8">
+                            <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                        </div>
+                    </div>
+
+                    <!-- Confirmar contraseña -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar contraseña" required minlength="8">
+                            <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm_password')"></i>
+                        </div>
+                    </div>
+
+                    <!-- Términos y condiciones -->
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="terms" name="terminos" required>
+                            <label for="terms">Acepto los <a href="#" class="forgot-password">términos y condiciones</a></label>
+                        </div>
+                    </div>
+
+                    <!-- Botón crear cuenta -->
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-user-plus"></i>
+                        Registrarse
+                    </button>
+                </form>
+
+                <!-- Separador "O" -->
+                <div style="display: flex; align-items: center; margin: 20px 0; text-align: center;">
+                    <hr style="flex: 1; border: none; height: 1px; background: #e2e8f0;">
+                    <span style="padding: 0 15px; background: white; color: #64748b; font-size: 14px; font-weight: 500;">O continúa con</span>
+                    <hr style="flex: 1; border: none; height: 1px; background: #e2e8f0;">
+                </div>
+
+                <!-- Botones de Redes Sociales -->
+                <div class="social-buttons">
+                    <button type="button" class="btn-social btn-google" onclick="loginWithGoogle()">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="btn-social btn-facebook" onclick="loginWithFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+
+                <!-- Enlace para login -->
+                <div class="login-link" style="text-align: center; margin-top: 20px;">
+                    <p>¿Ya tienes cuenta? <a href="login-trabajador.html">Inicia sesión</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de notificación -->
+    <div id="notification-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i id="modal-icon" class="fas fa-check-circle"></i>
+                <h3 id="modal-title">Título</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">Mensaje</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close" class="btn-modal">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estilos del modal y botones sociales -->
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .modal-body p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .modal-footer {
+            padding: 20px 30px 30px;
+            text-align: center;
+        }
+
+        .btn-modal {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .modal-success {
+            color: #4CAF50;
+        }
+
+        .modal-error {
+            color: #f44336;
+        }
+
+        .modal-info {
+            color: #2196F3;
+        }
+
+        .btn-modal.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        .btn-modal.error:hover {
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para el separador */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            justify-content: center;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+
+        .divider span {
+            padding: 0 20px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            background: white;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contenedor de botones sociales */
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Botones de redes sociales */
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-social::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-social:hover::before {
+            left: 100%;
+        }
+
+        /* Botón de Google */
+        .btn-google {
+            border-color: #ea4335;
+            color: #ea4335;
+        }
+
+        .btn-google:hover {
+            background: linear-gradient(135deg, #ea4335, #d33b2c);
+            color: white;
+            border-color: #ea4335;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.3);
+        }
+
+        .btn-google i {
+            font-size: 18px;
+        }
+
+        /* Botón de Facebook */
+        .btn-facebook {
+            border-color: #1877f2;
+            color: #1877f2;
+        }
+
+        .btn-facebook:hover {
+            background: linear-gradient(135deg, #1877f2, #166fe5);
+            color: white;
+            border-color: #1877f2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3);
+        }
+
+        .btn-facebook i {
+            font-size: 18px;
+        }
+
+        /* Responsivo para botones sociales */
+        @media (max-width: 480px) {
+            .social-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn-social {
+                width: 100%;
+                padding: 14px 20px;
+            }
+        }
+    </style>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling;
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // ================================================================
+        // FUNCIONES PARA REDES SOCIALES
+        // ================================================================
+        function loginWithGoogle() {
+            const rol = getRolFromCurrentPage();
+            showNotification('Abriendo formulario de Google...', 'info', 'Conectando');
+            window.location.href = `/auth/google/login?rol=${encodeURIComponent(rol)}`;
+        }
+
+        function loginWithFacebook() {
+            const rol = getRolFromCurrentPage();
+            showNotification('Abriendo formulario de Facebook...', 'info', 'Conectando');
+            window.location.href = `/auth/facebook/login?rol=${encodeURIComponent(rol)}`;
+        }
+        function getRolFromCurrentPage() {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('agricultor') || currentPath.includes('Agricultor')) {
+                return 'Agricultor';
+            }
+                return 'Trabajador';
+        }
+
+        // ================================================================
+        // FUNCIONES PARA INTERACTUAR CON EL BACKEND PYTHON
+        // ================================================================
+        function logout() {
+            fetch('http://localhost:5000/logout.py', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' // Para incluir cookies de sesión
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '../vista/login-trabajador.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Para obtener datos del usuario
+        function getUserData() {
+            fetch('http://localhost:5000/get_user_data.py', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' // Para incluir cookies de sesión
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.error) {
+                    console.log('Datos del usuario:', data.data);
+                    // Usar los datos como necesites
+                    return data.data;
+                } else {
+                    console.log('Error:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Función mejorada para mostrar notificaciones modales
+        function showNotification(message, type, title = '') {
+            const modal = document.getElementById('notification-modal');
+            const icon = document.getElementById('modal-icon');
+            const titleEl = document.getElementById('modal-title');
+            const messageEl = document.getElementById('modal-message');
+            const closeBtn = document.getElementById('modal-close');
+            
+            // Configurar contenido según el tipo
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle modal-success';
+                titleEl.textContent = title || '¡Registro Exitoso!';
+                closeBtn.className = 'btn-modal';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle modal-error';
+                titleEl.textContent = title || 'Error en el Registro';
+                closeBtn.className = 'btn-modal error';
+            } else {
+                icon.className = 'fas fa-info-circle modal-info';
+                titleEl.textContent = title || 'Información';
+                closeBtn.className = 'btn-modal';
+            }
+            
+            messageEl.innerHTML = message;
+            modal.style.display = 'flex';
+            
+            // Cerrar modal
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            };
+            
+            // Cerrar con ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Cerrar clickeando fuera del modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Validación mejorada del formulario
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const terms = document.getElementById('terms').checked;
+            
+            // Validar campos obligatorios
+            if (!nombre || !apellido || !correo || !password || !confirmPassword) {
+                showNotification('Por favor, completa todos los campos obligatorios.', 'error', 'Campos Incompletos');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Verificar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                showNotification('Las contraseñas ingresadas no coinciden. Por favor, verifícalas.', 'error', 'Contraseñas No Coinciden');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Validar nombre (solo letras y espacios)
+            const nameRegex = /^[A-Za-zÀ-ÿ\s]+$/;
+            if (!nameRegex.test(nombre)) {
+                showNotification('El nombre solo puede contener letras y espacios.', 'error', 'Nombre Inválido');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Validar apellido (solo letras y espacios)
+            if (!nameRegex.test(apellido)) {
+                showNotification('El apellido solo puede contener letras y espacios.', 'error', 'Apellido Inválido');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Validar longitud de contraseña
+            if (password.length < 8) {
+                showNotification('La contraseña debe tener al menos 8 caracteres para mayor seguridad.', 'error', 'Contraseña Muy Corta');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Verificar términos
+            if (!terms) {
+                showNotification('Debes aceptar los términos y condiciones para continuar.', 'error', 'Términos Requeridos');
+                e.preventDefault();
+                return false;
+            }
+            
+            // Mostrar mensaje de procesamiento
+            showNotification('Tu registro está siendo procesado. Por favor espera un momento...', 'info', 'Procesando');
+            return true;
+        });
+
+        // Manejar mensajes de Python
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            const type = urlParams.get('type');
+            
+            if (message) {
+                const decodedMessage = decodeURIComponent(message);
+                
+                if (type === 'success') {
+                    showNotification(decodedMessage, 'success');
+                } else if (type === 'error') {
+                    showNotification(decodedMessage, 'error');
+                } else {
+                    showNotification(decodedMessage, 'info');
+                }
+                
+                // Limpiar la URL
+                const cleanURL = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanURL);
+            }
+        });
+
+        // Validación en tiempo real
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#e74c3c';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+            }
+        });
+
+        document.getElementById('nombre').addEventListener('input', function() {
+            const nameRegex = /^[A-Za-zÀ-ÿ\s]*$/;
+            if (!nameRegex.test(this.value)) {
+                this.style.borderColor = '#e74c3c';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+            }
+        });
+
+        document.getElementById('apellido').addEventListener('input', function() {
+            const nameRegex = /^[A-Za-zÀ-ÿ\s]*$/;
+            if (!nameRegex.test(this.value)) {
+                this.style.borderColor = '#e74c3c';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+            }
+        });
+    </script>
+</body>
+</html>

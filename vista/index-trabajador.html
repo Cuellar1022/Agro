@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMatch - Dashboard Trabajador</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="../assent/css/index-trabajador.css">
+    <!-- Leaflet CSS y JS (Reemplazo de Google Maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/index-trabajador.js"></script>
+</head>
+<body>
+    <!-- Overlay para modales -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Dropdown dinámico del perfil -->
+    <div id="dynamicProfileDropdown" style="
+        position: fixed;
+        top: 80px;
+        right: 30px;
+        z-index: 9999;
+        min-width: 280px;
+        display: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+    ">
+        <div class="dynamic-dropdown-content">
+            <div class="dynamic-dropdown-header">
+                <div class="dynamic-dropdown-avatar profile-photo" id="dropdownAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="dynamic-dropdown-name" id="dropdownName">Cargando...</div>
+                <div class="dynamic-dropdown-role">
+                    <i class="fas fa-seedling"></i>
+                    <span>Trabajador Agrícola</span>
+                </div>
+            </div>
+            <div class="dynamic-dropdown-menu">
+                <div class="dynamic-dropdown-item" onclick="showProfile()">
+                    <div class="icon"><i class="fas fa-user-circle"></i></div>
+                    <span>Ver Perfil</span>
+                </div>
+                <div class="dynamic-dropdown-item" onclick="showStats()">
+                    <div class="icon"><i class="fas fa-chart-bar"></i></div>
+                    <span>Mis Estadísticas</span>
+                </div>
+                <div class="dynamic-dropdown-item" onclick="showHistorialEmpleos()">
+                    <div class="icon"><i class="fas fa-history"></i></div>
+                    <span>Historial de Empleos</span>
+                </div>
+                <div class="dynamic-dropdown-item" onclick="showPostulaciones()">
+                    <div class="icon"><i class="fas fa-paper-plane"></i></div>
+                    <span>Mis Postulaciones</span>
+                </div>
+                <div class="dynamic-dropdown-item" onclick="showFavoritos()">
+                    <div class="icon"><i class="fas fa-heart"></i></div>
+                    <span>Mis Favoritos</span>
+                </div>
+                <div class="dynamic-dropdown-item" onclick="showSettings()">
+                    <div class="icon"><i class="fas fa-cog"></i></div>
+                    <span>Configuración</span>
+                </div>
+                <div class="dynamic-dropdown-item logout" onclick="logout()">
+                    <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <span>Cerrar Sesión</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                 <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:40px;">
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="searchJobs()">
+                    <i class="fas fa-search"></i> Buscar Trabajos
+                </button>
+                <div class="notification-icon" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">2</span>
+                </div>
+                <div class="profile-menu profile-photo" id="profileMenuBtn" onclick="toggleProfileMenu()">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="main-panel">
+                <!-- Search and Filters -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Buscar trabajos por ubicación, tipo de cultivo, etc..." oninput="filterJobs(this.value)">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <div class="filter-container">
+                    <button class="filter-btn active" onclick="filterByType(this, 'todos')">Todos</button>
+                    <button class="filter-btn" onclick="filterByType(this, 'cosecha')">Cosecha</button>
+                    <button class="filter-btn" onclick="filterByType(this, 'siembra')">Siembra</button>
+                    <button class="filter-btn" onclick="filterByType(this, 'mantenimiento')">Mantenimiento</button>
+                    <button class="filter-btn" onclick="filterByType(this, 'recoleccion')">Recolección</button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <div class="quick-stat-number">8</div>
+                        <div class="quick-stat-label">Trabajos Cerca</div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-number">3</div>
+                        <div class="quick-stat-label">Postulaciones</div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-number">1</div>
+                        <div class="quick-stat-label">En Progreso</div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Trabajos Disponibles Cerca de Ti
+                </div>
+                
+                <div class="job-list">
+                    <div class="job-card" data-type="cosecha">
+                        <div class="job-header">
+                            <div class="job-title">Cosecha de Café Premium</div>
+                            <div class="job-salary">$50,000/día</div>
+                        </div>
+                        <div class="job-details">
+                            Finca El Paraíso - Recolección selectiva de café maduro en montaña. Experiencia en café requerida.
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            2.5 km • 3 días de duración • Inicia mañana
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Café</span>
+                                <span class="job-tag">Montaña</span>
+                                <span class="job-tag">Premium</span>
+                            </div>
+                            <div class="job-actions"></div>
+                            <button class="favorite-btn" onclick="toggleFavorite(this, 1)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="apply-btn" onclick="applyToJob(this)"></button>
+                                <i class="fas fa-paper-plane"></i> Postularme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-card" data-type="siembra">
+                        <div class="job-header">
+                            <div class="job-title">Siembra de Maíz Tecnificado</div>
+                            <div class="job-salary">$45,000/día</div>
+                        </div>
+                        <div class="job-details">
+                            Lote Norte - Preparación de tierra, siembra tecnificada y aplicación de fertilizantes.
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            4.1 km • 5 días de duración • Inicia en 2 días
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Maíz</span>
+                                <span class="job-tag">Tecnificado</span>
+                            </div>
+                            <button class="apply-btn" onclick="applyToJob(this)">
+                                <i class="fas fa-paper-plane"></i> Postularme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-card" data-type="recoleccion">
+                        <div class="job-header">
+                            <div class="job-title">Recolección de Frutas Cítricas</div>
+                            <div class="job-salary">$40,000/día</div>
+                        </div>
+                        <div class="job-details">
+                            Huerto Principal - Recolección cuidadosa de naranjas y limones. Manejo delicado requerido.
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            1.8 km • 2 días de duración • Flexible
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Cítricos</span>
+                                <span class="job-tag">Cerca</span>
+                            </div>
+                            <button class="apply-btn" onclick="applyToJob(this)">
+                                <i class="fas fa-paper-plane"></i> Postularme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-card" data-type="mantenimiento">
+                        <div class="job-header">
+                            <div class="job-title">Mantenimiento de Invernaderos</div>
+                            <div class="job-salary">$42,000/día</div>
+                        </div>
+                        <div class="job-details">
+                            Finca La Esperanza - Poda, limpieza y mantenimiento de sistemas de riego en invernaderos.
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            6.2 km • 1 día de duración • Hoy
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Invernadero</span>
+                                <span class="job-tag">Técnico</span>
+                            </div>
+                            <button class="apply-btn" onclick="applyToJob(this)">
+                                <i class="fas fa-paper-plane"></i> Postularme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-card" data-type="cosecha">
+                        <div class="job-header">
+                            <div class="job-title">Cosecha de Aguacate Hass</div>
+                            <div class="job-salary">$55,000/día</div>
+                        </div>
+                        <div class="job-details">
+                            Finca Los Alpes - Cosecha especializada de aguacate Hass para exportación. Experiencia necesaria.
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            7.5 km • 4 días de duración • Próximamente
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Aguacate</span>
+                                <span class="job-tag">Exportación</span>
+                                <span class="job-tag">Premium</span>
+                            </div>
+                            <button class="apply-btn" onclick="applyToJob(this)">
+                                <i class="fas fa-paper-plane"></i> Postularme
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Jobs Section -->
+                <div class="my-jobs">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        Mis Trabajos
+                    </div>
+                    
+                    <div class="job-card current-job">
+                        <div class="job-header">
+                            <div class="job-title">Cosecha de Tomate Cherry - Confirmado</div>
+                            <div class="job-status status-confirmed">En Progreso</div>
+                        </div>
+                        <div class="job-details">
+                            Finca Los Rosales - Día 2 de 3 • Progreso: 75% completado
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-clock"></i>
+                            1 día restante • Finaliza mañana
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Activo</span>
+                            </div>
+                            <button class="btn btn-primary" onclick="viewProgress()">
+                                <i class="fas fa-chart-line"></i> Ver Progreso
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-title">Siembra de Lechuga - Pendiente</div>
+                            <div class="job-status status-pending">Pendiente</div>
+                        </div>
+                        <div class="job-details">
+                            Esperando confirmación del agricultor • Postulado hace 2 días
+                        </div>
+                        <div class="job-location">
+                            <i class="fas fa-hourglass-half"></i>
+                            Respuesta esperada en 24 horas
+                        </div>
+                        <div class="job-footer">
+                            <div class="job-tags">
+                                <span class="job-tag">Postulado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-panel">
+                <!-- Profile Section -->
+                <div class="profile-section">
+                    <div class="profile-avatar profile-photo" id="profileAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-name" id="profileName">Cargando...</div>
+                    
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-value">4.8</span>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="stat-value">28</div>
+                            <div class="stat-label">Trabajos</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-value">156h</div>
+                            <div class="stat-label">Horas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Section -->
+                <div class="section-title">
+                    <i class="fas fa-map"></i>
+                    Trabajos Cercanos
+                </div>
+                <div id="map" style="height: 300px; border-radius: 15px; overflow: hidden; border: 2px solid #4a7c59;"></div>
+
+                <!-- Notifications -->
+                <div class="notifications">
+                    <div class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Notificaciones
+                    </div>
+                    
+                    <div class="notification-item" onclick="handleNotification(this)">
+                        <div class="notification-title">🆕 Nuevo trabajo disponible</div>
+                        <div class="notification-text">Cosecha de aguacate a 3km de tu ubicación. Pago: $55,000/día</div>
+                    </div>
+
+                    <div class="notification-item" onclick="handleNotification(this)">
+                        <div class="notification-title">⏰ Recordatorio de trabajo</div>
+                        <div class="notification-text">Tu trabajo de mañana inicia a las 6:00 AM en Finca Los Rosales</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para cargar foto de perfil - EJECUTAR AUTOMÁTICAMENTE -->
+    <script>
+        // Cargar foto de perfil cuando la página se carga
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ejecutar después de que todo esté cargado
+            setTimeout(loadUserProfilePhoto, 1000);
+        });
+    </script>
+</body>
+</html>

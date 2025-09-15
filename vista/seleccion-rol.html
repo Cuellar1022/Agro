@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Rol - AgroMatch</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a2e 0%, #2d5a27 35%, #4a7c59 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .roles-container {
+            display: flex;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .role-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            flex: 1;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4a7c59, #66b266);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .role-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3a2e;
+            margin-bottom: 15px;
+        }
+
+        .role-description {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-select {
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5a27 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-select:hover {
+            background: linear-gradient(135deg, #3d6b4a 0%, #1e3a2e 100%);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .roles-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .role-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>¿Cómo quieres registrarte?</h1>
+        <p>Elige la opción que mejor se adapte a ti</p>
+    </div>
+
+    <div class="container">
+        <div class="roles-container">
+            <div class="role-card" onclick="selectRole('Trabajador')">
+                <div class="role-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="role-title">Soy<br>Trabajador</h2>
+                <p class="role-description">
+                    Busco empleo en el sector agrícola y quiero encontrar las mejores oportunidades
+                </p>
+                <button class="btn-select">
+                    <i class="fas fa-users"></i>
+                    Registrarme como Trabajador
+                </button>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Agricultor')">
+                <div class="role-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2 class="role-title">Soy<br>Agricultor</h2>
+                <p class="role-description">
+                    Busco contratar trabajadores calificados para mi finca o empresa agrícola
+                </p>
+                <button class="btn-select">
+                    <i class="fas fa-building"></i>
+                    Registrarme como Agricultor
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            // Determinar la URL de destino según el rol
+            let destinationURL;
+            
+            if (role === 'Trabajador') {
+                destinationURL = 'registro-trabajador.html';
+            } else if (role === 'Agricultor') {
+                destinationURL = 'registro-agricultor.html';
+            } else {
+                console.error('Rol no válido:', role);
+                return;
+            }
+            
+            // Opcional: Guardar el rol seleccionado (si necesitas usarlo después)
+            localStorage.setItem('selected_role', role);
+            
+            // Debug: Mostrar información en consola
+            console.log('Rol seleccionado:', role);
+            console.log('Redirigiendo a:', destinationURL);
+            
+            // Redireccionar al formulario correspondiente
+            window.location.href = destinationURL;
+        }
+    </script>
+</body>
+</html>

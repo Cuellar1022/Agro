@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - AgroMatch</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assent/css/configuracion-trabajador.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                     <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:50px;">
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar profile-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">Cargando...</span>
+                        <span class="user-role">Trabajador Agrícola</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="settings-container">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="index-trabajador.html"><i class="fas fa-home"></i> Dashboard</a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span>Configuración</span>
+                </div>
+
+                <h1 class="page-title">
+                    <i class="fas fa-cog"></i>
+                    Configuración de Cuenta
+                </h1>
+
+                <!-- Settings Sections -->
+                <div class="settings-sections">
+                    
+                    <!-- Cambiar Contraseña -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-key"></i> Cambiar Contraseña</h2>
+                            <p>Actualiza tu contraseña para mantener tu cuenta segura</p>
+                        </div>
+                        <form class="settings-form" id="changePasswordForm">
+                            <div class="form-group">
+                                <label for="currentPassword">Contraseña Actual</label>
+                                <div class="password-input">
+                                    <input type="password" id="currentPassword" name="currentPassword" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('currentPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Nueva Contraseña</label>
+                                <div class="password-input">
+                                    <input type="password" id="newPassword" name="newPassword" minlength="8" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+                                <div class="password-input">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Cambiar Contraseña
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Configurar Notificaciones -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-bell"></i> Configurar Notificaciones</h2>
+                            <p>Elige cómo quieres recibir notificaciones sobre ofertas de trabajo</p>
+                        </div>
+                        <form class="settings-form" id="notificationForm">
+                            <div class="notification-group">
+                                <h3>Notificaciones por Email</h3>
+                                <div class="switch-container">
+                                    <label class="switch">
+                                        <input type="checkbox" id="emailNotifications" name="emailNotifications" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Recibir ofertas de trabajo por correo electrónico</span>
+                                </div>
+                                <div class="switch-container">
+                                    <label class="switch">
+                                        <input type="checkbox" id="emailUpdates" name="emailUpdates" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Actualizaciones de cuenta y sistema</span>
+                                </div>
+                            </div>
+
+                            <div class="notification-group">
+                                <h3>Notificaciones por WhatsApp</h3>
+                                <div class="form-group">
+                                    <label for="whatsappNumber">Número de WhatsApp</label>
+                                    <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="+57 300 123 4567">
+                                </div>
+                                <div class="switch-container">
+                                    <label class="switch">
+                                        <input type="checkbox" id="whatsappNotifications" name="whatsappNotifications">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Recibir notificaciones por WhatsApp</span>
+                                </div>
+                                <div class="switch-container">
+                                    <label class="switch">
+                                        <input type="checkbox" id="whatsappUrgent" name="whatsappUrgent">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Solo notificaciones urgentes por WhatsApp</span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar Configuración de Notificaciones
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Preferencias de Idioma y Tema -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-palette"></i> Preferencias de Idioma y Tema</h2>
+                            <p>Personaliza tu experiencia en la plataforma</p>
+                        </div>
+                        <form class="settings-form" id="preferencesForm">
+                            <div class="form-group">
+                                <label for="language">Idioma</label>
+                                <select id="language" name="language">
+                                    <option value="es" selected>Español</option>
+                                    <option value="en">English</option>
+                                    <option value="pt">Português</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="theme">Tema</label>
+                                <select id="theme" name="theme">
+                                    <option value="light" selected>Claro</option>
+                                    <option value="dark">Oscuro</option>
+                                    <option value="auto">Automático (según sistema)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timezone">Zona Horaria</label>
+                                <select id="timezone" name="timezone">
+                                    <option value="America/Bogota" selected>Colombia (GMT-5)</option>
+                                    <option value="America/Lima">Perú (GMT-5)</option>
+                                    <option value="America/Caracas">Venezuela (GMT-4)</option>
+                                    <option value="America/Quito">Ecuador (GMT-5)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar Preferencias
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Eliminar Cuenta -->
+                    <section class="settings-section danger-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-trash-alt"></i> Eliminar Cuenta</h2>
+                            <p class="danger-text">Esta acción no se puede deshacer. Se eliminarán todos tus datos permanentemente.</p>
+                        </div>
+                        <div class="danger-zone">
+                            <div class="danger-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div>
+                                    <h4>¿Estás seguro?</h4>
+                                    <p>Al eliminar tu cuenta se perderán:</p>
+                                    <ul>
+                                        <li>Tu perfil y experiencia laboral</li>
+                                        <li>Todas las postulaciones realizadas</li>
+                                        <li>Historial de trabajos y calificaciones</li>
+                                        <li>Mensajes y comunicaciones</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Opciones de eliminación -->
+                            <div class="delete-options">
+                                <!-- Eliminar con contraseña tradicional -->
+                                <button type="button" class="btn-danger" onclick="showDeleteConfirmation()">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Eliminar con contraseña
+                                </button>
+                                
+                                <!-- Separador - siempre visible -->
+                                <div class="delete-separator" id="deleteSeparator">
+                                    <span>o eliminar usando</span>
+                                </div>
+                                
+                                <!-- Botones de redes sociales para eliminar - inicialmente visibles para prueba -->
+                                <div class="delete-social-buttons" id="deleteSocialContainer">
+                                    <button type="button" class="btn-delete-social btn-delete-google" onclick="deletAccountWithGoogle()" id="deleteGoogleBtn">
+                                        <i class="fab fa-google"></i>
+                                        <span>Eliminar con Google</span>
+                                    </button>
+                                    
+                                    <button type="button" class="btn-delete-social btn-delete-facebook" onclick="deleteAccountWithFacebook()" id="deleteFacebookBtn">
+                                        <i class="fab fa-facebook-f"></i>
+                                        <span>Eliminar con Facebook</span>
+                                    </button>
+                                </div>
+                                
+                                <!-- Mensaje si no hay redes sociales -->
+                                <div class="no-social-message" id="noSocialMessage" style="display: none;">
+                                    <p><i class="fas fa-info-circle"></i> No tienes cuentas de redes sociales asociadas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Acción</h3>
+                <button class="modal-close" onclick="hideModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">¿Estás seguro de que quieres realizar esta acción?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideModal()">Cancelar</button>
+                <button class="btn-primary" id="confirmButton">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación de Cuenta -->
+    <div id="deleteAccountModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content danger-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Eliminar Cuenta</h3>
+                <button class="modal-close" onclick="hideDeleteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Para confirmar la eliminación de tu cuenta, escribe tu contraseña actual:</p>
+                <div class="form-group">
+                    <input type="password" id="deletePassword" placeholder="Contraseña actual" required>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="confirmDelete" required>
+                        <span class="checkmark"></span>
+                        Entiendo que esta acción no se puede deshacer
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideDeleteModal()">Cancelar</button>
+                <button class="btn-danger" onclick="deleteAccount()">
+                    <i class="fas fa-trash-alt"></i>
+                    Eliminar Cuenta Permanentemente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación con Redes Sociales -->
+    <div id="deleteSocialModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content danger-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Eliminar Cuenta</h3>
+                <button class="modal-close" onclick="hideSocialDeleteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Vas a eliminar tu cuenta usando <span id="socialProviderText"></span></strong></p>
+                <p>Esta acción eliminará permanentemente:</p>
+                <ul>
+                    <li>Tu perfil completo</li>
+                    <li>Todas tus postulaciones</li>
+                    <li>Historial de trabajos</li>
+                    <li>Mensajes y comunicaciones</li>
+                </ul>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="confirmSocialDelete" required>
+                        <span class="checkmark"></span>
+                        Entiendo que esta acción no se puede deshacer
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideSocialDeleteModal()">Cancelar</button>
+                <button class="btn-danger" id="confirmSocialDeleteBtn">
+                    <i class="fas fa-trash-alt"></i>
+                    Eliminar Cuenta Permanentemente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/configuracion-trabajador.js"></script>
+    
+    <!-- Script para cargar foto de perfil -->
+    <script>
+        // Cargar foto de perfil cuando la página se carga
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfilePhoto();
+            checkSocialDeleteOptions();
+        });
+
+        // Función para obtener y mostrar la foto de perfil
+        function loadUserProfilePhoto() {
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        const photoUrl = data.user.url_foto;
+                        
+                        // Buscar elementos de foto en esta página específica
+                        const profileElements = document.querySelectorAll('.profile-photo, .user-avatar');
+                        
+                        profileElements.forEach(element => {
+                            if (photoUrl && photoUrl !== '' && photoUrl !== null) {
+                                element.style.backgroundImage = `url('${photoUrl}')`;
+                                element.style.backgroundSize = 'cover';
+                                element.style.backgroundPosition = 'center';
+                                element.style.borderRadius = '50%';
+                                element.innerHTML = '';
+                            } else {
+                                element.innerHTML = '<i class="fas fa-user"></i>';
+                                element.style.backgroundImage = 'none';
+                            }
+                        });
+
+                        // También actualizar el nombre del usuario
+                        const nameElement = document.getElementById('userName');
+                        if (nameElement && data.user.full_name) {
+                            nameElement.textContent = data.user.full_name;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cargando foto de perfil:', error);
+                });
+        }
+
+        // Función para verificar si el usuario se registró con redes sociales
+        function checkSocialDeleteOptions() {
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        const redSocial = data.user.red_social;
+                        
+                        if (redSocial) {
+                            // El usuario tiene red social asociada
+                            if (redSocial.includes('google:')) {
+                                document.getElementById('deleteGoogleBtn').style.display = 'flex';
+                            }
+                            if (redSocial.includes('facebook:')) {
+                                document.getElementById('deleteFacebookBtn').style.display = 'flex';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verificando opciones sociales:', error);
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMatch - Historial de Empleos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="../assent/css/historial-empleos.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="../assent/img/logo.jpg" alt="AgroMatch Logo" style="height:40px;">
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Volver al Dashboard
+            </button>
+            <button class="btn btn-primary" onclick="exportToPDF()">
+                <i class="fas fa-file-pdf"></i> Exportar PDF
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <i class="fas fa-history"></i>
+            <span>Historial de Empleos</span>
+        </div>
+
+        <!-- Filtros y controles -->
+        <div class="controls-section">
+            <div class="search-container">
+                <input type="text" id="searchHistorial" placeholder="Buscar por empleador, tipo de trabajo..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div class="filter-controls">
+                <select id="estadoFilter" class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="Completado">Completados</option>
+                    <option value="En curso">En curso</option>
+                    <option value="Cancelado">Cancelados</option>
+                </select>
+
+                <select id="fechaFilter" class="filter-select">
+                    <option value="">Ordenar por fecha</option>
+                    <option value="desc">Más recientes primero</option>
+                    <option value="asc">Más antiguos primero</option>
+                </select>
+
+                <select id="tipoFilter" class="filter-select">
+                    <option value="">Todos los tipos</option>
+                    <option value="Cosecha">Cosecha</option>
+                    <option value="Siembra">Siembra</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Recolección">Recolección</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Estadísticas rápidas -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Trabajos Completados</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">156h</div>
+                    <div class="stat-label">Horas Trabajadas</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Calificación Promedio</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">$1,250,000</div>
+                    <div class="stat-label">Ingresos Totales</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de empleos -->
+        <div class="historial-list" id="historialList">
+            <!-- Los empleos se cargarán dinámicamente -->
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            <button class="pagination-btn" onclick="previousPage()">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span class="pagination-info">Página 1 de 3</span>
+            <button class="pagination-btn" onclick="nextPage()">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de detalles -->
+    <div class="modal-backdrop" id="detalleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detalles del Empleo</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido del modal se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/historial-empleos.js"></script>
+</body>
+</html>

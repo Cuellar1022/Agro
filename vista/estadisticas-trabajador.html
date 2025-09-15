@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Estadísticas - Agromach</title>
+    <link rel="stylesheet" href="../assent/css/estadisticas-trabajador.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <button class="back-btn" onclick="volverAlIndex()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1><i class="fas fa-chart-bar"></i> Mis Estadísticas</h1>
+                <div class="user-info">
+                    <div class="profile-img profile-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span id="nombreUsuario">Cargando...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Resumen de estadísticas -->
+        <section class="stats-summary">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalTrabajos">0</h3>
+                    <p>Trabajos Realizados</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalHoras">0</h3>
+                    <p>Horas Trabajadas</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalIngresos">$0</h3>
+                    <p>Ingresos Totales</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="calificacionPromedio">0.0</h3>
+                    <p>Calificación Promedio</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráficas -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h2><i class="fas fa-chart-line"></i> Ingresos por Mes</h2>
+                <canvas id="ingresosMensuales"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2><i class="fas fa-chart-pie"></i> Trabajos por Tipo</h2>
+                <canvas id="trabajosPorTipo"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2><i class="fas fa-chart-bar"></i> Horas Trabajadas por Mes</h2>
+                <canvas id="horasMensuales"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2><i class="fas fa-star"></i> Evolución de Calificaciones</h2>
+                <canvas id="evolucionCalificaciones"></canvas>
+            </div>
+        </section>
+
+        <!-- Detalles adicionales -->
+        <section class="details-section">
+            <div class="detail-card">
+                <h3><i class="fas fa-history"></i> Trabajos Recientes</h3>
+                <div id="trabajosRecientes" class="trabajos-lista">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-tools"></i> Mis Habilidades</h3>
+                <div id="habilidadesList" class="habilidades-lista">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtros de período -->
+        <section class="filters-section">
+            <h3><i class="fas fa-filter"></i> Filtrar por Período</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-period="all">Todo</button>
+                <button class="filter-btn" data-period="month">Este Mes</button>
+                <button class="filter-btn" data-period="quarter">3 Meses</button>
+                <button class="filter-btn" data-period="year">Este Año</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="/js/estadisticas-trabajador.js"></script>
+    
+    <!-- Script para cargar foto de perfil -->
+    <script>
+        // Cargar foto de perfil cuando la página se carga
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfilePhoto();
+        });
+
+        // Función para obtener y mostrar la foto de perfil
+        function loadUserProfilePhoto() {
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        const photoUrl = data.user.url_foto;
+                        
+                        // Buscar elementos de foto en esta página específica
+                        const profileElements = document.querySelectorAll('.profile-photo, .profile-img');
+                        
+                        profileElements.forEach(element => {
+                            if (photoUrl && photoUrl !== '' && photoUrl !== null) {
+                                element.style.backgroundImage = `url('${photoUrl}')`;
+                                element.style.backgroundSize = 'cover';
+                                element.style.backgroundPosition = 'center';
+                                element.style.borderRadius = '50%';
+                                element.innerHTML = '';
+                            } else {
+                                element.innerHTML = '<i class="fas fa-user"></i>';
+                                element.style.backgroundImage = 'none';
+                            }
+                        });
+
+                        // También actualizar el nombre del usuario
+                        const nameElement = document.getElementById('nombreUsuario');
+                        if (nameElement && data.user.full_name) {
+                            nameElement.textContent = data.user.full_name;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cargando foto de perfil:', error);
+                });
+        }
+    </script>
+</body>
+</html>
