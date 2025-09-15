@@ -1,0 +1,821 @@
+/* ================================================================
+   ARCHIVO CSS PARA REGISTRO DE TRABAJADOR DE AGROMATCH
+   ================================================================
+   Este archivo contiene todos los estilos para el formulario de
+   registro de trabajadores con animaciones avanzadas, efectos 
+   glassmorphism y diseño moderno.
+   ================================================================ */
+
+/* Reset básico para eliminar márgenes y paddings por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+/* Estilos del cuerpo principal con fondo degradado y imagen */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Fuente moderna */
+    background: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), /* Overlay oscuro */
+        url('../img/fondo-agro.jpg'); /* Imagen de fondo agrícola */
+    background-size: cover; /* Cubrir toda la pantalla */
+    background-position: center; /* Centrar la imagen */
+    background-attachment: fixed; /* Fondo fijo al hacer scroll */
+    min-height: 100vh; /* Altura mínima de la ventana */
+    color: #1a1a1a; /* Color de texto principal */
+}
+
+/* Partículas flotantes animadas usando pseudo-elemento */
+body::before {
+    content: ''; /* Contenido vacío para pseudo-elemento */
+    position: fixed; /* Posición fija respecto a la ventana */
+    top: 0; /* Desde arriba */
+    left: 0; /* Desde la izquierda */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background-image: 
+        /* Gradientes radiales para simular partículas */
+        radial-gradient(circle at 20% 50%, rgba(120, 200, 120, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(139, 195, 74, 0.1) 0%, transparent 50%);
+    animation: particleFloat 20s ease-in-out infinite; /* Animación de flotación */
+    pointer-events: none; /* No interfiere con eventos del mouse */
+    z-index: 1; /* Por debajo del contenido */
+}
+
+/* Keyframes para la animación de partículas flotantes */
+@keyframes particleFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); } /* Posición inicial y final */
+    33% { transform: translate(30px, -30px) rotate(120deg); } /* Primera posición intermedia */
+    66% { transform: translate(-20px, 20px) rotate(240deg); } /* Segunda posición intermedia */
+}
+
+/* Contenedor principal del formulario de registro */
+.register-container {
+    max-width: 1100px; /* Ancho máximo */
+    margin: 0 auto; /* Centrado horizontal */
+    padding: 15px; /* Espaciado interno */
+    position: relative; /* Para posicionamiento de elementos hijos */
+    z-index: 2; /* Por encima de las partículas */
+}
+
+/* Header del registro con navegación y logo */
+.register-header {
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Alineación vertical centrada */
+    justify-content: space-between; /* Espacio entre elementos */
+    margin-bottom: 20px; /* Margen inferior */
+    padding: 15px 20px; /* Espaciado interno */
+    background: rgba(255, 255, 255, 0.08); /* Fondo semi-transparente */
+    backdrop-filter: blur(20px); /* Efecto de desenfoque glassmorphism */
+    border-radius: 16px; /* Bordes redondeados */
+    border: 1px solid rgba(255, 255, 255, 0.12); /* Borde sutil */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Enlace de regreso con efecto hover */
+.back-link {
+    color: rgba(255, 255, 255, 0.9); /* Color blanco semi-transparente */
+    text-decoration: none; /* Sin subrayado */
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Alineación vertical */
+    gap: 8px; /* Espacio entre icono y texto */
+    font-weight: 500; /* Peso de fuente medio */
+    font-size: 14px; /* Tamaño de fuente */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+    padding: 10px 16px; /* Espaciado interno */
+    border-radius: 12px; /* Bordes redondeados */
+    background: rgba(255, 255, 255, 0.1); /* Fondo transparente */
+    backdrop-filter: blur(10px); /* Desenfoque de fondo */
+}
+
+/* Efecto hover del enlace de regreso */
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.2); /* Fondo más opaco */
+    transform: translateX(-3px); /* Desplazamiento hacia la izquierda */
+    color: white; /* Color blanco completo */
+}
+
+/* Logo de la aplicación */
+.logo {
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Alineación vertical */
+    gap: 10px; /* Espacio entre icono y texto */
+    color: white; /* Color blanco */
+    font-size: 22px; /* Tamaño de fuente */
+    font-weight: 700; /* Peso de fuente bold */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+}
+
+/* Icono del logo con efecto de resplandor */
+.logo i {
+    font-size: 26px; /* Tamaño del icono */
+    filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.6)); /* Resplandor verde */
+}
+
+/* Contenedor principal con layout de dos columnas */
+.register-content {
+    display: grid; /* Layout de cuadrícula */
+    grid-template-columns: 400px 1fr; /* Columna fija y columna flexible */
+    gap: 0; /* Sin espacio entre columnas */
+    background: rgba(255, 255, 255, 0.98); /* Fondo blanco semi-transparente */
+    backdrop-filter: blur(20px); /* Desenfoque glassmorphism */
+    border-radius: 20px; /* Bordes muy redondeados */
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.15), /* Sombra principal */
+        0 0 0 1px rgba(255, 255, 255, 0.1); /* Borde sutil */
+    overflow: hidden; /* Ocultar desbordamiento */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde transparente */
+    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Animación de entrada */
+}
+
+/* Keyframes para animación de entrada desde abajo */
+@keyframes slideUp {
+    from {
+        opacity: 0; /* Transparente */
+        transform: translateY(30px); /* Desplazado hacia abajo */
+    }
+    to {
+        opacity: 1; /* Opaco */
+        transform: translateY(0); /* Posición final */
+    }
+}
+
+/* Panel lateral de información con gradiente verde */
+.register-info {
+    background: linear-gradient(145deg, #1B5E20 0%, #2E7D32 35%, #388E3C 70%, #4CAF50 100%); /* Gradiente verde */
+    color: white; /* Texto blanco */
+    padding: 35px 30px; /* Espaciado interno */
+    display: flex; /* Layout flexbox */
+    flex-direction: column; /* Dirección vertical */
+    justify-content: center; /* Centrado vertical */
+    position: relative; /* Para pseudo-elementos */
+    overflow: hidden; /* Ocultar desbordamiento */
+}
+
+/* Efecto de brillo animado en el panel lateral */
+.register-info::before {
+    content: ''; /* Contenido vacío */
+    position: absolute; /* Posición absoluta */
+    top: 0; /* Desde arriba */
+    left: 0; /* Desde la izquierda */
+    right: 0; /* Hasta la derecha */
+    bottom: 0; /* Hasta abajo */
+    background: 
+        /* Gradientes radiales para efecto de brillo */
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: backgroundShimmer 8s ease-in-out infinite; /* Animación de brillo */
+}
+
+/* Keyframes para el efecto de brillo */
+@keyframes backgroundShimmer {
+    0%, 100% { opacity: 0.5; } /* Opacidad baja */
+    50% { opacity: 1; } /* Opacidad alta */
+}
+
+/* Título principal del panel lateral */
+.register-info h1 {
+    font-size: 32px; /* Tamaño grande */
+    margin-bottom: 12px; /* Margen inferior */
+    font-weight: 800; /* Peso extra bold */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra de texto */
+    position: relative; /* Para z-index */
+    z-index: 1; /* Por encima del pseudo-elemento */
+}
+
+/* Párrafo descriptivo del panel lateral */
+.register-info p {
+    font-size: 16px; /* Tamaño mediano */
+    margin-bottom: 25px; /* Margen inferior */
+    opacity: 0.95; /* Ligeramente transparente */
+    position: relative; /* Para z-index */
+    z-index: 1; /* Por encima del pseudo-elemento */
+    line-height: 1.5; /* Espaciado entre líneas */
+}
+
+/* Contenedor de beneficios */
+.benefits {
+    display: flex; /* Layout flexbox */
+    flex-direction: column; /* Dirección vertical */
+    gap: 12px; /* Espacio entre elementos */
+    position: relative; /* Para z-index */
+    z-index: 1; /* Por encima del pseudo-elemento */
+}
+
+/* Item individual de beneficio */
+.benefit-item {
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Alineación vertical */
+    gap: 12px; /* Espacio entre icono y texto */
+    font-size: 14px; /* Tamaño de fuente */
+    padding: 12px 16px; /* Espaciado interno */
+    background: rgba(255, 255, 255, 0.12); /* Fondo transparente */
+    border-radius: 10px; /* Bordes redondeados */
+    backdrop-filter: blur(10px); /* Desenfoque de fondo */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde sutil */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+}
+
+/* Efecto hover de los items de beneficio */
+.benefit-item:hover {
+    background: rgba(255, 255, 255, 0.2); /* Fondo más opaco */
+    transform: translateX(8px); /* Desplazamiento hacia la derecha */
+}
+
+/* Icono de los items de beneficio */
+.benefit-item i {
+    font-size: 16px; /* Tamaño del icono */
+    color: #C8E6C9; /* Color verde claro */
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3)); /* Resplandor */
+}
+
+/* Contenedor del formulario principal */
+.register-form-container {
+    padding: 35px 30px; /* Espaciado interno */
+    background: rgba(255, 255, 255, 0.98); /* Fondo blanco semi-transparente */
+}
+
+/* Header del formulario */
+.form-header {
+    text-align: center; /* Texto centrado */
+    margin-bottom: 25px; /* Margen inferior */
+}
+
+/* Título del formulario */
+.form-header h2 {
+    font-size: 26px; /* Tamaño grande */
+    color: #1B5E20; /* Color verde oscuro */
+    margin-bottom: 6px; /* Margen inferior */
+    font-weight: 700; /* Peso bold */
+}
+
+/* Subtítulo del formulario */
+.form-header p {
+    color: #666; /* Color gris */
+    font-size: 14px; /* Tamaño pequeño */
+}
+
+/* Grid del formulario con dos columnas */
+.register-form {
+    display: grid; /* Layout de cuadrícula */
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 18px; /* Espacio entre elementos */
+}
+
+/* Los últimos 3 elementos ocupan todo el ancho */
+.register-form .form-group:nth-last-child(-n+3) {
+    grid-column: 1 / -1; /* Desde la primera hasta la última columna */
+}
+
+/* Grupo de formulario individual */
+.form-group {
+    display: flex; /* Layout flexbox */
+    flex-direction: column; /* Dirección vertical */
+}
+
+/* Etiquetas de los campos */
+.form-group label {
+    font-weight: 600; /* Peso semi-bold */
+    color: #1B5E20; /* Color verde oscuro */
+    margin-bottom: 6px; /* Margen inferior */
+    font-size: 13px; /* Tamaño pequeño */
+}
+
+/* Estilos de inputs y selects */
+.form-group input,
+.form-group select {
+    padding: 12px 14px; /* Espaciado interno */
+    border: 2px solid #e8f5e8; /* Borde verde claro */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    font-family: inherit; /* Heredar fuente */
+}
+
+/* Estado focus de inputs y selects */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none; /* Sin outline por defecto */
+    border-color: #4CAF50; /* Borde verde */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1); /* Sombra de enfoque */
+    background: white; /* Fondo blanco */
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+}
+
+/* Texto pequeño informativo */
+.form-group small {
+    color: #888; /* Color gris */
+    font-size: 11px; /* Tamaño muy pequeño */
+    margin-top: 4px; /* Margen superior */
+}
+
+/* Grupo de checkbox */
+.checkbox-group {
+    flex-direction: row; /* Dirección horizontal */
+    align-items: flex-start; /* Alineación al inicio */
+    gap: 10px; /* Espacio entre elementos */
+}
+
+/* Etiqueta del checkbox */
+.checkbox-label {
+    display: flex; /* Layout flexbox */
+    align-items: flex-start; /* Alineación al inicio */
+    gap: 10px; /* Espacio entre elementos */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 13px; /* Tamaño de fuente */
+    line-height: 1.4; /* Espaciado entre líneas */
+}
+
+/* Ocultar checkbox nativo */
+.checkbox-label input[type="checkbox"] {
+    display: none; /* No mostrar */
+}
+
+/* Checkbox personalizado */
+.checkmark {
+    width: 18px; /* Ancho */
+    height: 18px; /* Altura */
+    border: 2px solid #ddd; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+    flex-shrink: 0; /* No reducir tamaño */
+    margin-top: 1px; /* Margen superior */
+    background: white; /* Fondo blanco */
+}
+
+/* Estado checked del checkbox */
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); /* Gradiente verde */
+    border-color: #4CAF50; /* Borde verde */
+    transform: scale(1.05); /* Ligero aumento de tamaño */
+}
+
+/* Marca de verificación */
+.checkbox-label input[type="checkbox"]:checked + .checkmark:before {
+    content: "✓"; /* Símbolo de check */
+    color: white; /* Color blanco */
+    font-weight: bold; /* Peso bold */
+    font-size: 12px; /* Tamaño pequeño */
+}
+
+/* Enlaces dentro del checkbox */
+.checkbox-label a {
+    color: #4CAF50; /* Color verde */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Peso semi-bold */
+    transition: color 0.3s; /* Transición de color */
+}
+
+/* Hover de enlaces en checkbox */
+.checkbox-label a:hover {
+    color: #2E7D32; /* Verde más oscuro */
+    text-decoration: underline; /* Con subrayado */
+}
+
+/* Botón de envío principal */
+.btn-submit {
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 50%, #4CAF50 100%); /* Gradiente verde */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 14px 28px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 15px; /* Tamaño de fuente */
+    font-weight: 600; /* Peso semi-bold */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    gap: 10px; /* Espacio entre elementos */
+    margin-top: 20px; /* Margen superior */
+    position: relative; /* Para pseudo-elementos */
+    overflow: hidden; /* Ocultar desbordamiento */
+    font-family: inherit; /* Heredar fuente */
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); /* Sombra verde */
+}
+
+/* Efecto de brillo en el botón */
+.btn-submit::before {
+    content: ''; /* Contenido vacío */
+    position: absolute; /* Posición absoluta */
+    top: 0; /* Desde arriba */
+    left: -100%; /* Fuera del botón a la izquierda */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Gradiente de brillo */
+    transition: left 0.6s; /* Transición de posición */
+}
+
+/* Animación de brillo en hover */
+.btn-submit:hover::before {
+    left: 100%; /* Mover fuera del botón a la derecha */
+}
+
+/* Hover del botón de envío */
+.btn-submit:hover {
+    transform: translateY(-2px); /* Desplazamiento hacia arriba */
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4); /* Sombra más intensa */
+}
+
+/* Estado activo del botón */
+.btn-submit:active {
+    transform: translateY(0); /* Volver a posición original */
+}
+
+/* Footer del formulario */
+.form-footer {
+    text-align: center; /* Texto centrado */
+    margin-top: 20px; /* Margen superior */
+    padding-top: 20px; /* Espaciado superior */
+    border-top: 1px solid rgba(224, 224, 224, 0.3); /* Borde superior sutil */
+}
+
+/* Enlaces en el footer */
+.form-footer a {
+    color: #4CAF50; /* Color verde */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Peso semi-bold */
+    transition: all 0.3s; /* Transición suave */
+}
+
+/* Hover de enlaces en footer */
+.form-footer a:hover {
+    text-decoration: underline; /* Con subrayado */
+    color: #2E7D32; /* Verde más oscuro */
+}
+
+/* Overlay del modal con desenfoque */
+.modal-overlay {
+    position: fixed; /* Posición fija */
+    top: 0; /* Desde arriba */
+    left: 0; /* Desde la izquierda */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background: rgba(0, 0, 0, 0.7); /* Fondo negro transparente */
+    backdrop-filter: blur(8px); /* Desenfoque de fondo */
+    display: flex; /* Layout flexbox */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    z-index: 1000; /* Z-index alto */
+    animation: fadeIn 0.3s ease-out; /* Animación de entrada */
+}
+
+/* Modal principal y modal de selección de usuario */
+.modal,
+.user-selection-modal {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%); /* Gradiente blanco */
+    backdrop-filter: blur(30px); /* Desenfoque intenso */
+    border-radius: 20px; /* Bordes muy redondeados */
+    padding: 30px; /* Espaciado interno */
+    max-width: 420px; /* Ancho máximo */
+    width: 90%; /* Ancho relativo */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2), /* Sombra principal */
+        0 0 0 1px rgba(255, 255, 255, 0.3); /* Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde transparente */
+    transform: scale(0.95); /* Escala reducida inicial */
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Animación de entrada */
+    position: relative; /* Para posicionamiento */
+}
+
+/* Título del modal */
+.modal h2 {
+    font-size: 24px; /* Tamaño grande */
+    color: #1B5E20; /* Color verde oscuro */
+    margin-bottom: 10px; /* Margen inferior */
+    font-weight: 700; /* Peso bold */
+    text-align: center; /* Texto centrado */
+}
+
+/* Párrafo del modal */
+.modal p {
+    color: #666; /* Color gris */
+    font-size: 14px; /* Tamaño pequeño */
+    line-height: 1.5; /* Espaciado entre líneas */
+    text-align: center; /* Texto centrado */
+    margin-bottom: 25px; /* Margen inferior */
+    padding-bottom: 15px; /* Espaciado inferior */
+    border-bottom: 2px solid rgba(76, 175, 80, 0.1); /* Borde inferior verde */
+}
+
+/* Contenedor de opciones del modal */
+.modal-options {
+    display: flex; /* Layout flexbox */
+    flex-direction: column; /* Dirección vertical */
+    gap: 15px; /* Espacio entre elementos */
+}
+
+/* Opción de usuario en el modal */
+.user-option {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%); /* Gradiente claro */
+    border: 2px solid rgba(76, 175, 80, 0.2); /* Borde verde transparente */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+    position: relative; /* Para posicionamiento */
+    overflow: hidden; /* Ocultar desbordamiento */
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Centrado vertical */
+    gap: 15px; /* Espacio entre elementos */
+    text-decoration: none; /* Sin subrayado */
+    color: inherit; /* Heredar color */
+}
+
+/* Hover de la opción de usuario */
+.user-option:hover {
+    border-color: #4CAF50; /* Borde verde */
+    transform: translateY(-3px); /* Desplazamiento hacia arriba */
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2); /* Sombra verde */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(232, 245, 233, 0.95) 100%); /* Gradiente verde claro */
+}
+
+/* Icono de la opción de usuario */
+.user-option i {
+    width: 50px; /* Ancho */
+    height: 50px; /* Altura */
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); /* Gradiente verde */
+    border-radius: 50%; /* Círculo completo */
+    display: flex; /* Layout flexbox */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    color: white; /* Color blanco */
+    font-size: 20px; /* Tamaño del icono */
+    flex-shrink: 0; /* No reducir tamaño */
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3); /* Sombra verde */
+    transition: all 0.3s; /* Transición suave */
+}
+
+/* Hover del icono */
+.user-option:hover i {
+    transform: scale(1.1); /* Aumento de tamaño */
+}
+
+/* Contenido de la opción */
+.user-option .option-content {
+    flex: 1; /* Tomar espacio disponible */
+}
+
+/* Título de la opción */
+.user-option h3 {
+    font-size: 18px; /* Tamaño mediano */
+    font-weight: 700; /* Peso bold */
+    color: #1B5E20; /* Color verde oscuro */
+    margin-bottom: 6px; /* Margen inferior */
+}
+
+/* Párrafo de la opción */
+.user-option p {
+    color: #666; /* Color gris */
+    font-size: 13px; /* Tamaño pequeño */
+    line-height: 1.4; /* Espaciado entre líneas */
+    margin-bottom: 10px; /* Margen inferior */
+    border: none; /* Sin borde */
+    padding: 0; /* Sin espaciado */
+    text-align: left; /* Texto alineado a la izquierda */
+}
+
+/* Botón dentro de la opción */
+.user-option button {
+    display: inline-flex; /* Layout flexbox inline */
+    align-items: center; /* Centrado vertical */
+    gap: 6px; /* Espacio entre elementos */
+    background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%); /* Gradiente verde */
+    color: white; /* Texto blanco */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    font-size: 12px; /* Tamaño pequeño */
+    font-weight: 600; /* Peso semi-bold */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s; /* Transición suave */
+}
+
+/* Hover del botón */
+.user-option button:hover {
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%); /* Gradiente más oscuro */
+    transform: translateY(-1px); /* Desplazamiento hacia arriba */
+}
+
+/* ================================================================
+   MEDIA QUERIES PARA DISEÑO RESPONSIVO
+   ================================================================ */
+
+/* TABLETS GRANDES (hasta 1024px de ancho)
+   - Se aplica cuando la pantalla es menor o igual a 1024px
+   - Principalmente para tablets en orientación horizontal */
+@media (max-width: 1024px) {
+    .register-content {
+        /* Reduce el ancho de la columna lateral de información
+           - Primera columna: 350px (más pequeña que en desktop)
+           - Segunda columna: ocupa el resto del espacio disponible */
+        grid-template-columns: 350px 1fr;
+    }
+}
+
+/* TABLETS Y MÓVILES GRANDES (hasta 768px de ancho)
+   - Se aplica a tablets en orientación vertical y móviles grandes
+   - Cambios significativos en el layout para adaptarse a pantallas más pequeñas */
+@media (max-width: 768px) {
+    body {
+        /* Cambia el comportamiento del fondo de pantalla
+           - En lugar de 'fixed', usa 'scroll' para mejor rendimiento en móviles
+           - Evita problemas de rendering en dispositivos táctiles */
+        background-attachment: scroll;
+    }
+    
+    .register-content {
+        /* Convierte el layout de 2 columnas a 1 sola columna
+           - Ahora todos los elementos se apilan verticalmente
+           - Mejor experiencia en pantallas estrechas */
+        grid-template-columns: 1fr;
+    }
+    
+    .register-info {
+        /* Reduce el padding interno de la sección de información
+           - 30px arriba/abajo, 25px izquierda/derecha
+           - Optimiza el espacio en pantallas más pequeñas */
+        padding: 30px 25px;
+    }
+    
+    .register-form-container {
+        /* Aplica el mismo padding reducido al contenedor del formulario
+           - Mantiene consistencia visual con la sección de información */
+        padding: 30px 25px;
+    }
+    
+    .register-form {
+        /* Convierte el formulario a una sola columna
+           - Los campos del formulario se apilan verticalmente
+           - Más fácil de completar en pantallas táctiles */
+        grid-template-columns: 1fr;
+    }
+    
+    .register-form .form-group:nth-last-child(-n+3) {
+        /* Aplica estilos específicos a los últimos 3 elementos del formulario
+           - nth-last-child(-n+3) selecciona los últimos 3 elementos
+           - Los fuerza a ocupar toda la columna disponible
+           - Útil para botones o campos especiales al final del formulario */
+        grid-column: 1;
+    }
+}
+
+/* MÓVILES PEQUEÑOS (hasta 480px de ancho)
+   - Se aplica a smartphones y dispositivos muy pequeños
+   - Ajustes más agresivos para optimizar el espacio limitado */
+@media (max-width: 480px) {
+    .register-container {
+        /* Reduce significativamente el padding del contenedor principal
+           - Solo 10px en todos los lados
+           - Aprovecha al máximo el espacio disponible en pantallas pequeñas */
+        padding: 10px;
+    }
+    
+    .register-header {
+        /* Cambia el header a layout vertical (columna)
+           - flex-direction: column apila los elementos verticalmente
+           - gap: 15px añade espacio entre elementos apilados
+           - padding: 12px reduce el espacio interno */
+        flex-direction: column;
+        gap: 15px;
+        padding: 12px;
+    }
+    
+    .register-info {
+        /* Reduce aún más el padding de la sección de información
+           - 25px arriba/abajo, 20px izquierda/derecha
+           - Maximiza el área de contenido útil */
+        padding: 25px 20px;
+    }
+    
+    .register-form-container {
+        /* Aplica el mismo padding reducido al contenedor del formulario
+           - Mantiene la consistencia visual en toda la página */
+        padding: 25px 20px;
+    }
+    
+    .modal,
+    .user-selection-modal {
+        /* Optimiza los modales para pantallas muy pequeñas
+           - padding: 20px reduce el espacio interno
+           - margin: 15px reduce los márgenes externos
+           - Los modales ocupan más espacio de la pantalla disponible
+           - Mejora la usabilidad en dispositivos táctiles pequeños */
+        padding: 20px;
+        margin: 15px;
+    }
+} 
+
+/* Estilos para el separador */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+}
+
+.divider span {
+    padding: 0 20px;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    background: white;
+}
+
+/* Contenedor de botones sociales */
+.social-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Botones de redes sociales */
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-social::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+}
+
+.btn-social:hover::before {
+    left: 100%;
+}
+
+/* Botón de Google */
+.btn-google {
+    border-color: #ea4335;
+    color: #ea4335;
+}
+
+.btn-google:hover {
+    background: linear-gradient(135deg, #ea4335, #d33b2c);
+    color: white;
+    border-color: #ea4335;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(234, 67, 53, 0.3);
+}
+
+/* Botón de Facebook */
+.btn-facebook {
+    border-color: #1877f2;
+    color: #1877f2;
+}
+
+.btn-facebook:hover {
+    background: linear-gradient(135deg, #1877f2, #166fe5);
+    color: white;
+    border-color: #1877f2;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3);
+}
+
+/* Responsivo para móviles */
+@media (max-width: 480px) {
+    .social-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-social {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}
+

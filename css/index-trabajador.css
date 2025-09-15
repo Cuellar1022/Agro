@@ -1,0 +1,1885 @@
+/* AgroMatch Dashboard - CSS Corregido con Imagen de Fondo */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: 
+        url('../img/img4.gif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #1e3a2e;
+    position: relative;
+}
+
+/* Overlay sutil para mejorar legibilidad sin ocultar la imagen */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 58, 46, 0.05);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================================================
+   OVERLAY GLOBAL
+   ================================================================ */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+
+.header {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(30, 58, 46, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(144, 238, 144, 0.3);
+    position: relative;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e3a2e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* ================================================================
+   BOTONES
+   ================================================================ */
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.5);
+    background: linear-gradient(135deg, #5a8c69, #2e4a3e);
+}
+
+/* ================================================================
+   NOTIFICACIONES EN HEADER
+   ================================================================ */
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    color: #64748b;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.notification-icon:hover {
+    background: rgba(144, 238, 144, 0.2);
+    color: #4a7c59;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ================================================================
+   MENÚ DE PERFIL - BOTÓN
+   ================================================================ */
+
+.profile-menu {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.4);
+    position: relative;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+
+.profile-menu:hover,
+.profile-menu.active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.6);
+    background: linear-gradient(135deg, #5a8c69, #2e4a3e);
+}
+
+/* ================================================================
+   DROPDOWN DINÁMICO DEL PERFIL
+   ================================================================ */
+
+.dynamic-dropdown-content {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(144, 238, 144, 0.2);
+}
+
+.dynamic-dropdown-header {
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(74, 124, 89, 0.1), rgba(144, 238, 144, 0.1));
+    border-bottom: 1px solid rgba(144, 238, 144, 0.2);
+    text-align: center;
+}
+
+.dynamic-dropdown-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 15px;
+    box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
+}
+
+.dynamic-dropdown-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a2e;
+    margin-bottom: 6px;
+}
+
+.dynamic-dropdown-role {
+    font-size: 15px;
+    color: #4a7c59;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dynamic-dropdown-menu {
+    padding: 10px 0;
+}
+
+.dynamic-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 25px;
+    color: #1e3a2e;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba(144, 238, 144, 0.1);
+    font-weight: 500;
+    font-size: 15px;
+    background: transparent;
+}
+
+.dynamic-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dynamic-dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(144, 238, 144, 0.15), rgba(74, 124, 89, 0.08));
+    color: #4a7c59;
+    padding-left: 30px;
+    transform: translateX(5px);
+}
+
+.dynamic-dropdown-item .icon {
+    width: 22px;
+    text-align: center;
+    font-size: 18px;
+    color: #64748b;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.dynamic-dropdown-item:hover .icon {
+    color: #4a7c59;
+}
+
+.dynamic-dropdown-item.logout {
+    color: #dc2626;
+    border-top: 2px solid rgba(220, 38, 38, 0.1);
+    margin-top: 10px;
+}
+
+.dynamic-dropdown-item.logout:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+    color: #dc2626;
+}
+
+.dynamic-dropdown-item.logout .icon {
+    color: #dc2626;
+}
+
+/* ================================================================
+   DASHBOARD GRID
+   ================================================================ */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.main-panel, .side-panel {
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(30, 58, 46, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(144, 238, 144, 0.2);
+}
+
+/* ================================================================
+   BÚSQUEDA Y FILTROS
+   ================================================================ */
+
+.search-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 16px 50px 16px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.filter-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+    outline: none;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    border-color: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+}
+
+/* ================================================================
+   ESTADÍSTICAS RÁPIDAS
+   ================================================================ */
+
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.quick-stat {
+    background: rgba(144, 238, 144, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(74, 124, 89, 0.2);
+}
+
+.quick-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(74, 124, 89, 0.2);
+    background: rgba(144, 238, 144, 0.25);
+}
+
+.quick-stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e3a2e;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.quick-stat-label {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* ================================================================
+   SECCIÓN TITLE
+   ================================================================ */
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e3a2e;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title i {
+    color: #4a7c59;
+}
+
+/* ================================================================
+   TARJETAS DE TRABAJOS
+   ================================================================ */
+
+.job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.job-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(144, 238, 144, 0.08);
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+}
+
+.job-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.job-card:hover {
+    border-color: #4a7c59;
+    box-shadow: 0 10px 30px rgba(74, 124, 89, 0.2);
+    transform: translateY(-5px);
+    background: rgba(144, 238, 144, 0.15);
+}
+
+.job-card:hover::before {
+    opacity: 1;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.job-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a2e;
+    flex: 1;
+}
+
+.job-salary {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a7c59;
+    background: rgba(74, 124, 89, 0.15);
+    backdrop-filter: blur(5px);
+    padding: 8px 15px;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.job-details {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.job-location {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.job-location i {
+    color: #4a7c59;
+    flex-shrink: 0;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.job-tag {
+    background: rgba(74, 124, 89, 0.15);
+    color: #4a7c59;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.apply-btn {
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.apply-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
+    background: linear-gradient(135deg, #5a8c69, #2e4a3e);
+}
+
+/* ================================================================
+   TRABAJOS EN PROGRESO
+   ================================================================ */
+
+.my-jobs {
+    margin-top: 40px;
+}
+
+.current-job {
+    background: rgba(74, 124, 89, 0.12);
+    backdrop-filter: blur(10px);
+    border: 2px solid #4a7c59;
+}
+
+.job-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-confirmed {
+    background: rgba(74, 124, 89, 0.2);
+    color: #1e3a2e;
+    border: 1px solid rgba(74, 124, 89, 0.4);
+}
+
+.status-pending {
+    background: rgba(249, 115, 22, 0.2);
+    color: #ea580c;
+    border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+/* ================================================================
+   PANEL LATERAL
+   ================================================================ */
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(144, 238, 144, 0.2);
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+    transition: all 0.3s ease;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(74, 124, 89, 0.5);
+}
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a2e;
+    margin-bottom: 15px;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.rating i {
+    color: #fbbf24;
+    font-size: 18px;
+}
+
+.rating-value {
+    margin-left: 8px;
+    color: #1e3a2e;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.profile-stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e3a2e;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* ================================================================
+   MAPA
+   ================================================================ */
+
+.map-container {
+    background: rgba(144, 238, 144, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e3a2e;
+    margin-bottom: 30px;
+    border: 2px dashed #4a7c59;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.map-container:hover {
+    background: rgba(144, 238, 144, 0.3);
+    transform: scale(1.02);
+    border-color: #1e3a2e;
+}
+
+.map-content {
+    text-align: center;
+}
+
+.map-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #4a7c59;
+}
+
+.map-content strong {
+    font-size: 16px;
+    color: #1e3a2e;
+}
+
+.map-content small {
+    color: #4a7c59;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ================================================================
+   NOTIFICACIONES
+   ================================================================ */
+
+.notifications {
+    margin-top: 30px;
+}
+
+.notification-item {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border-left: 4px solid #4a7c59;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(74, 124, 89, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.notification-title {
+    font-weight: 700;
+    color: #1e3a2e;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.notification-text {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ================================================================
+   MODALES
+   ================================================================ */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 450px;
+    margin: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    transform: scale(0.9) translateY(30px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(144, 238, 144, 0.2);
+}
+
+.modal-backdrop.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-content h3 {
+    color: #1e3a2e;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.modal-content p {
+    color: #64748b;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 14px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 15px;
+    min-width: 120px;
+}
+
+.modal-btn-cancel {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+}
+
+.modal-btn-cancel:hover {
+    background: #e2e8f0;
+    color: #475569;
+    transform: translateY(-2px);
+}
+
+.modal-btn-confirm {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    color: white;
+}
+
+.modal-btn-confirm:hover {
+    background: linear-gradient(135deg, #991b1b, #7f1d1d);
+    transform: translateY(-2px);
+}
+
+/* ================================================================
+   ANIMACIONES
+   ================================================================ */
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ================================================================
+   ESTADOS DE CARGA
+   ================================================================ */
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 20px;
+    border-radius: 4px;
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+
+@media (max-width: 1200px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .logo {
+        font-size: 28px;
+    }
+
+    .main-panel, .side-panel {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .job-salary {
+        align-self: flex-end;
+    }
+
+    .job-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .apply-btn {
+        align-self: flex-end;
+    }
+
+    .filter-container {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .map-container {
+        height: 160px;
+    }
+
+    .map-icon {
+        font-size: 36px;
+    }
+
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Dropdown responsivo */
+    #dynamicProfileDropdown {
+        right: 10px !important;
+        left: 10px !important;
+        min-width: auto !important;
+        max-width: calc(100vw - 20px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 15px;
+    }
+
+    .main-panel, .side-panel {
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.98);
+    }
+
+    .job-card {
+        padding: 20px;
+    }
+
+    .job-title {
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .apply-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .modal-content {
+        padding: 30px 20px;
+        margin: 15px;
+    }
+
+    .modal-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+}
+
+/* ================================================================
+   UTILIDADES
+   ================================================================ */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+
+.p-10 { padding: 10px; }
+.p-20 { padding: 20px; }
+
+.rounded { border-radius: 8px; }
+.rounded-lg { border-radius: 12px; }
+.rounded-xl { border-radius: 16px; }
+
+.shadow-sm { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.shadow-md { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+.shadow-lg { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+
+/* CSS para botones de favoritos - Agregar al final de index-trabajador.css */
+
+/* Botón de favoritos */
+.favorite-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #666;
+    border: 2px solid #e8f5e8;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 40px;
+    outline: none;
+}
+
+.favorite-btn:hover {
+    background: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+    border-color: rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+}
+
+.favorite-btn.active {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+    border-color: #F44336;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.favorite-btn.active:hover {
+    background: linear-gradient(135deg, #E53935, #C62828);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.5);
+}
+
+.favorite-btn i {
+    transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover i {
+    transform: scale(1.1);
+}
+
+.favorite-btn.active i {
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Ajuste del footer de tarjetas de trabajo para incluir favoritos */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.job-footer .job-tags {
+    flex: 1;
+}
+
+.job-footer .apply-btn,
+.job-footer .favorite-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Container para botones de acción */
+.job-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Toast notifications para favoritos */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 11000;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid #e8f5e8;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+    transform: translateX(400px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 350px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left: 4px solid #4CAF50;
+}
+
+.toast.info {
+    border-left: 4px solid #2196F3;
+}
+
+.toast.warning {
+    border-left: 4px solid #FF9800;
+}
+
+.toast.error {
+    border-left: 4px solid #F44336;
+}
+
+.toast-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.toast-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.toast.success .toast-icon {
+    color: #4CAF50;
+}
+
+.toast.info .toast-icon {
+    color: #2196F3;
+}
+
+.toast.warning .toast-icon {
+    color: #FF9800;
+}
+
+.toast.error .toast-icon {
+    color: #F44336;
+}
+
+.toast-title {
+    font-weight: 700;
+    color: #1B5E20;
+    font-size: 14px;
+    flex: 1;
+}
+
+.toast-message {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.4;
+    padding-left: 26px;
+}
+
+/* Responsive para botones de favoritos */
+@media (max-width: 768px) {
+    .job-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .job-actions {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+    }
+
+    .favorite-btn {
+        padding: 8px 10px;
+        min-width: 40px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .toast-container {
+        right: 10px;
+        left: 10px;
+    }
+
+    .toast {
+        max-width: none;
+    }
+}
+
+/* Animación de loading para botón de favoritos */
+.favorite-btn .loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e8f5e8;
+    border-radius: 50%;
+    border-top-color: #F44336;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Efecto hover mejorado para las tarjetas con favoritos */
+.job-card:hover .favorite-btn {
+    border-color: rgba(244, 67, 54, 0.2);
+}
+
+.job-card:hover .favorite-btn:not(.active) {
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Indicador visual para trabajos favoritos */
+.job-card.is-favorite {
+    border-color: rgba(244, 67, 54, 0.3);
+}
+
+.job-card.is-favorite::before {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+}
+
+/* Contador de favoritos en estadísticas rápidas */
+.favorite-count {
+    color: #F44336;
+    font-weight: 600;
+}
+
+/* Contenedor para botones de acción */
+.job-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Botón de favoritos */
+.favorite-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #666;
+    border: 2px solid #e8f5e8;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 40px;
+    outline: none;
+}
+
+.favorite-btn:hover {
+    background: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+    border-color: rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+}
+
+.favorite-btn.active {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+    border-color: #F44336;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.favorite-btn.active:hover {
+    background: linear-gradient(135deg, #E53935, #C62828);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.5);
+}
+
+.favorite-btn i {
+    transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover i {
+    transform: scale(1.1);
+}
+
+.favorite-btn.active i {
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive para botones de acción */
+@media (max-width: 768px) {
+    .job-actions {
+        flex-direction: row-reverse;
+    }
+
+    .favorite-btn {
+        padding: 8px 10px;
+        min-width: 40px;
+        height: 36px;
+        font-size: 16px;
+    }
+}
+
+/* ================================================================ */
+/* ESTILOS ADICIONALES PARA DASHBOARD DE TRABAJADOR */
+/* ================================================================ */
+
+/* Loading spinner para botones */
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #4a7c59;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Botón de favoritos mejorado */
+.favorite-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: #ccc;
+    font-size: 18px;
+    margin-right: 8px;
+    position: relative;
+}
+
+.favorite-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+    transform: scale(1.1);
+}
+
+.favorite-btn.active {
+    color: #e74c3c;
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+.favorite-btn.active:hover {
+    background: rgba(231, 76, 60, 0.2);
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1.1); }
+    75% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* Mejoras en las acciones de trabajo */
+.job-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apply-btn {
+    background: linear-gradient(135deg, #4a7c59, #1e3a2e);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.apply-btn:hover:not(.disabled) {
+    background: linear-gradient(135deg, #3d6b4a, #152d1f);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(74, 124, 89, 0.3);
+}
+
+.apply-btn.success-check {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    cursor: default;
+}
+
+.apply-btn.disabled,
+.apply-btn:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.apply-btn.disabled:hover,
+.apply-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Estados de carga */
+.job-card.loading .apply-btn {
+    pointer-events: none;
+}
+
+/* Toast container mejorado */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+.toast {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    margin-bottom: 12px;
+    padding: 16px;
+    transform: translateX(400px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid #3498db;
+    pointer-events: all;
+    max-width: 350px;
+    word-wrap: break-word;
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast.success {
+    border-left-color: #27ae60;
+}
+
+.toast.error {
+    border-left-color: #e74c3c;
+}
+
+.toast.warning {
+    border-left-color: #f39c12;
+}
+
+.toast.info {
+    border-left-color: #3498db;
+}
+
+/* Animaciones mejoradas para las tarjetas */
+.job-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Estados de filtrado */
+.job-card[style*="display: none"] {
+    display: none !important;
+}
+
+.job-card[style*="display: block"] {
+    display: block !important;
+    animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Mensajes de estado */
+.no-jobs-message,
+.search-no-results {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+    margin: 2rem 0;
+    animation: fadeIn 0.5s ease;
+}
+
+.no-jobs-message h3,
+.search-no-results h3 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+/* Mejoras en los filtros */
+.filter-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
+}
+
+/* Estadísticas rápidas mejoradas */
+.quick-stat-number {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #4a7c59;
+    transition: all 0.3s ease;
+}
+
+.quick-stat:hover .quick-stat-number {
+    transform: scale(1.1);
+    color: #2c4a33;
+}
+
+/* Mejoras en el mapa */
+.custom-job-marker,
+.custom-user-marker {
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.custom-job-marker:hover,
+.custom-user-marker:hover {
+    transform: scale(1.1);
+}
+
+/* Notificaciones en tiempo real */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Mejoras responsive */
+@media (max-width: 768px) {
+    .toast-container {
+        left: 16px;
+        right: 16px;
+        max-width: none;
+    }
+    
+    .toast {
+        transform: translateY(-100px);
+        max-width: none;
+    }
+    
+    .toast.show {
+        transform: translateY(0);
+    }
+    
+    .job-actions {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .apply-btn,
+    .favorite-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .favorite-btn {
+        border-radius: 6px;
+        padding: 8px 16px;
+        background: rgba(231, 76, 60, 0.1);
+        color: #e74c3c;
+    }
+    
+    .favorite-btn.active {
+        background: rgba(231, 76, 60, 0.2);
+    }
+}
+
+/* Animaciones de carga inicial */
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.job-card {
+    animation: slideInFromBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.job-card:nth-child(even) {
+    animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Estados de hover mejorados */
+.job-card:hover .job-title {
+    color: #4a7c59;
+    transition: color 0.3s ease;
+}
+
+.job-card:hover .job-salary {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Indicadores de estado */
+.job-card[data-applied="true"] {
+    border-left: 4px solid #27ae60;
+    background: linear-gradient(135deg, #f8fff8, #ffffff);
+}
+
+.job-card[data-favorited="true"] {
+    border-left: 4px solid #e74c3c;
+    background: linear-gradient(135deg, #fff5f5, #ffffff);
+}
+
+/* Efectos de interacción */
+.job-card .job-footer {
+    transition: all 0.3s ease;
+}
+
+.job-card:hover .job-footer {
+    transform: translateY(-2px);
+}
+
+/* Loading states */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    z-index: 10;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 1em;
+    border-radius: 4px;
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+}

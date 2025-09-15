@@ -1,0 +1,805 @@
+/* ================================================================
+   ARCHIVO CSS PARA PÁGINA DE LOGIN DE AGROMATCH - TRABAJADORES
+   ================================================================
+   Este archivo contiene todos los estilos para la página de inicio 
+   de sesión de trabajadores con animaciones y diseño responsive.
+   ================================================================ */
+
+/* Importar fuentes modernas desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ================================================================
+   RESET Y CONFIGURACIÓN BASE
+   ================================================================ */
+
+/* Reset de márgenes, padding y modelo de caja universal */
+* {
+    margin: 0;               /* Eliminar margen por defecto */
+    padding: 0;              /* Eliminar padding por defecto */
+    box-sizing: border-box;  /* Incluir padding y border en el ancho total */
+}
+
+/* Configuración del cuerpo principal */
+body {
+    /* Fuente principal con fallbacks para diferentes sistemas */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Gradiente de fondo verde oscuro a claro */
+    background: linear-gradient(135deg, #1e3a2e 0%, #2d5a27 35%, #4a7c59 100%);
+    min-height: 100vh;       /* Altura mínima de toda la ventana */
+    overflow-x: hidden;      /* Ocultar scroll horizontal */
+}
+
+/* Patrón de fondo sutil con pseudo-elemento */
+body::before {
+    content: '';             /* Contenido vacío para el pseudo-elemento */
+    position: fixed;         /* Posición fija para que no se mueva con scroll */
+    top: 0;                  /* Pegado al top */
+    left: 0;                 /* Pegado a la izquierda */
+    width: 100%;             /* Ancho completo */
+    height: 100%;            /* Alto completo */
+    /* Gradientes radiales superpuestos para crear patrón sutil */
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(144, 238, 144, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(144, 238, 144, 0.1) 0%, transparent 50%);
+    pointer-events: none;    /* No interceptar eventos del mouse */
+    z-index: -1;             /* Enviar al fondo */
+}
+
+/* ================================================================
+   CONTENEDOR PRINCIPAL
+   ================================================================ */
+
+/* Contenedor principal con layout flexbox */
+.container {
+    display: flex;           /* Layout flexbox horizontal */
+    min-height: 100vh;       /* Altura mínima de toda la ventana */
+    position: relative;      /* Posición relativa para elementos absolutos internos */
+}
+
+/* ================================================================
+   SECCIÓN IZQUIERDA - INFORMACIÓN Y MARCA
+   ================================================================ */
+
+/* Sección izquierda con información de la marca */
+.left-section {
+    flex: 1;                 /* Tomar la mitad del espacio disponible */
+    /* Gradiente de fondo verde */
+    background: linear-gradient(135deg, #1e3a2e 0%, #2d5a27 50%, #4a7c59 100%);
+    padding: 80px 50px;      /* Espaciado interno amplio */
+    color: white;            /* Texto en blanco */
+    display: flex;           /* Layout flexbox */
+    flex-direction: column;  /* Dirección vertical */
+    justify-content: center; /* Centrar contenido verticalmente */
+    position: relative;      /* Para elementos absolutos internos */
+    overflow: hidden;        /* Ocultar contenido que se desborde */
+}
+
+/* Patrón de fondo decorativo para la sección izquierda */
+.left-section::before {
+    content: '';             /* Contenido vacío para pseudo-elemento */
+    position: absolute;      /* Posición absoluta */
+    top: 0;                  /* Pegado al top */
+    left: 0;                 /* Pegado a la izquierda */
+    width: 100%;             /* Ancho completo */
+    height: 100%;            /* Alto completo */
+    /* SVG embebido con círculos decorativos */
+    background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="3" fill="rgba(144,238,144,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(144,238,144,0.1)"/><circle cx="10" cy="60" r="1.5" fill="rgba(144,238,144,0.1)"/><circle cx="90" cy="30" r="2.5" fill="rgba(144,238,144,0.1)"/></svg>');
+    pointer-events: none;    /* No interceptar eventos */
+    opacity: 0.3;            /* Transparencia del patrón */
+}
+
+/* Contenedor de la marca */
+.brand {
+    max-width: 550px;        /* Ancho máximo del contenido */
+    position: relative;      /* Para que esté sobre el patrón de fondo */
+    z-index: 1;              /* Índice z superior al patrón */
+}
+
+/* Logo con icono y texto */
+.logo {
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    gap: 18px;               /* Espacio entre icono y texto */
+    margin-bottom: 40px;     /* Margen inferior */
+    animation: fadeInUp 0.8s ease-out; /* Animación de entrada */
+}
+
+/* Icono del logo */
+.logo i {
+    font-size: 3rem;         /* Tamaño del icono */
+    color: #90EE90;          /* Color verde claro */
+    /* Sombra brillante alrededor del icono */
+    filter: drop-shadow(0 0 10px rgba(144, 238, 144, 0.3));
+}
+
+/* Texto del logo */
+.logo span {
+    font-size: 2.2rem;       /* Tamaño de fuente grande */
+    font-weight: 700;        /* Peso de fuente bold */
+    letter-spacing: -0.5px;  /* Espaciado entre letras ajustado */
+}
+
+/* Título principal de la sección izquierda */
+.left-section h1 {
+    font-size: 3rem;         /* Tamaño de fuente muy grande */
+    margin-bottom: 25px;     /* Margen inferior */
+    line-height: 1.1;        /* Altura de línea compacta */
+    font-weight: 700;        /* Peso de fuente bold */
+    letter-spacing: -1px;    /* Espaciado entre letras ajustado */
+    /* Animación de entrada con retraso */
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* Párrafo descriptivo */
+.left-section p {
+    font-size: 1.2rem;       /* Tamaño de fuente mediano */
+    margin-bottom: 45px;     /* Margen inferior amplio */
+    opacity: 0.9;            /* Ligeramente transparente */
+    line-height: 1.6;        /* Altura de línea cómoda para lectura */
+    font-weight: 400;        /* Peso de fuente normal */
+    /* Animación de entrada con más retraso */
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Contenedor de beneficios */
+.benefits {
+    display: flex;           /* Layout flexbox */
+    flex-direction: column;  /* Dirección vertical */
+    gap: 20px;               /* Espacio entre elementos */
+    /* Animación de entrada con aún más retraso */
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+/* Cada elemento de beneficio */
+.benefit-item {
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    gap: 20px;               /* Espacio entre icono y texto */
+    padding: 20px;           /* Espaciado interno */
+    /* Fondo semitransparente */
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;     /* Bordes redondeados */
+    backdrop-filter: blur(20px); /* Efecto de desenfoque del fondo */
+    /* Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Transición suave para hover */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto hover en elementos de beneficio */
+.benefit-item:hover {
+    /* Fondo más opaco en hover */
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(10px); /* Mover a la derecha */
+    /* Borde más visible */
+    border-color: rgba(144, 238, 144, 0.3);
+}
+
+/* Icono dentro de cada beneficio */
+.benefit-item i {
+    font-size: 1.8rem;       /* Tamaño del icono */
+    color: #90EE90;          /* Color verde claro */
+    min-width: 35px;         /* Ancho mínimo para alineación */
+    /* Sombra brillante */
+    filter: drop-shadow(0 0 8px rgba(144, 238, 144, 0.3));
+}
+
+/* Texto dentro de cada beneficio */
+.benefit-item span {
+    font-size: 1.1rem;       /* Tamaño de fuente */
+    font-weight: 500;        /* Peso de fuente medio */
+}
+
+/* ================================================================
+   SECCIÓN DERECHA - FORMULARIO DE LOGIN
+   ================================================================ */
+
+/* Sección derecha con formulario */
+.right-section {
+    flex: 1;                 /* Tomar la mitad del espacio */
+    background: #ffffff;     /* Fondo blanco */
+    padding: 50px;           /* Espaciado interno */
+    display: flex;           /* Layout flexbox */
+    flex-direction: column;  /* Dirección vertical */
+    justify-content: center; /* Centrar verticalmente */
+    position: relative;      /* Para elementos absolutos */
+    /* Sombra lateral izquierda */
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Patrón de fondo sutil para sección derecha */
+.right-section::before {
+    content: '';             /* Contenido vacío */
+    position: absolute;      /* Posición absoluta */
+    top: 0;                  /* Pegado al top */
+    left: 0;                 /* Pegado a la izquierda */
+    width: 100%;             /* Ancho completo */
+    height: 100%;            /* Alto completo */
+    /* Gradientes radiales sutiles */
+    background: 
+        radial-gradient(circle at 90% 10%, rgba(45, 90, 39, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(45, 90, 39, 0.03) 0%, transparent 50%);
+    pointer-events: none;    /* No interceptar eventos */
+}
+
+/* Contenedor del formulario */
+.form-container {
+    max-width: 440px;        /* Ancho máximo del formulario */
+    margin: 0 auto;          /* Centrar horizontalmente */
+    width: 100%;             /* Ancho completo disponible */
+    position: relative;      /* Para que esté sobre el patrón */
+    z-index: 1;              /* Índice z superior */
+}
+
+/* Encabezado del formulario */
+.form-header {
+    text-align: center;      /* Centrar texto */
+    margin-bottom: 40px;     /* Margen inferior */
+}
+
+/* Título del formulario */
+.form-header h2 {
+    font-size: 2.5rem;       /* Tamaño de fuente grande */
+    color: #1e3a2e;          /* Color verde oscuro */
+    margin-bottom: 12px;     /* Margen inferior pequeño */
+    font-weight: 700;        /* Peso de fuente bold */
+    letter-spacing: -0.5px;  /* Espaciado entre letras ajustado */
+}
+
+/* Subtítulo del formulario */
+.form-header p {
+    color: #64748b;          /* Color gris */
+    font-size: 1.1rem;       /* Tamaño de fuente mediano */
+    font-weight: 400;        /* Peso de fuente normal */
+}
+
+/* Formulario principal */
+.login-form {
+    display: flex;           /* Layout flexbox */
+    flex-direction: column;  /* Dirección vertical */
+    gap: 25px;               /* Espacio entre elementos */
+}
+
+/* Grupo de campo de formulario */
+.form-group {
+    position: relative;      /* Para elementos absolutos internos */
+}
+
+/* Contenedor de input con icono */
+.input-container {
+    position: relative;      /* Para posicionar icono */
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+}
+
+/* Icono dentro del input */
+.input-icon {
+    position: absolute;      /* Posición absoluta */
+    left: 18px;              /* Posición desde la izquierda */
+    color: #64748b;          /* Color gris */
+    font-size: 1.2rem;       /* Tamaño del icono */
+    z-index: 2;              /* Sobre el input */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estilo de los inputs */
+.input-container input {
+    width: 100%;             /* Ancho completo */
+    padding: 18px 18px 18px 50px; /* Padding con espacio para icono */
+    border: 2px solid #e2e8f0; /* Borde gris claro */
+    border-radius: 12px;     /* Bordes redondeados */
+    font-size: 1rem;         /* Tamaño de fuente */
+    font-weight: 400;        /* Peso de fuente normal */
+    /* Transición suave con curva de animación personalizada */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;     /* Fondo blanco */
+    /* Sombra sutil */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado focus de los inputs */
+.input-container input:focus {
+    outline: none;           /* Quitar outline por defecto */
+    border-color: #4a7c59;   /* Borde verde en focus */
+    /* Sombra de focus personalizada */
+    box-shadow: 0 0 0 4px rgba(74, 124, 89, 0.1);
+    background: #ffffff;     /* Mantener fondo blanco */
+}
+
+/* Cambio de icono cuando input está en focus */
+.input-container input:focus + .input-icon {
+    color: #4a7c59;          /* Color verde para el icono */
+    transform: scale(1.1);   /* Escalar ligeramente */
+}
+
+/* Botón para mostrar/ocultar contraseña */
+.toggle-password {
+    position: absolute;      /* Posición absoluta */
+    right: 18px;             /* Posición desde la derecha */
+    color: #64748b;          /* Color gris */
+    cursor: pointer;         /* Cursor de mano */
+    font-size: 1.2rem;       /* Tamaño del icono */
+    z-index: 2;              /* Sobre el input */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estado hover del botón toggle password */
+.toggle-password:hover {
+    color: #4a7c59;          /* Color verde en hover */
+    transform: scale(1.1);   /* Escalar ligeramente */
+}
+
+/* Opciones del formulario (recordar y olvidé contraseña) */
+.form-options {
+    display: flex;           /* Layout flexbox */
+    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center;     /* Centrar verticalmente */
+    margin: 15px 0;          /* Margen vertical */
+}
+
+/* Sección "Recordarme" */
+.remember-me {
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    gap: 10px;               /* Espacio entre checkbox y label */
+}
+
+/* Checkbox personalizado */
+.remember-me input[type="checkbox"] {
+    width: 20px;             /* Ancho del checkbox */
+    height: 20px;            /* Alto del checkbox */
+    accent-color: #4a7c59;   /* Color del checkbox */
+    cursor: pointer;         /* Cursor de mano */
+}
+
+/* Label del checkbox */
+.remember-me label {
+    font-size: 0.95rem;      /* Tamaño de fuente pequeño */
+    color: #64748b;          /* Color gris */
+    cursor: pointer;         /* Cursor de mano */
+    font-weight: 500;        /* Peso de fuente medio */
+}
+
+/* Link "Olvidé mi contraseña" */
+.forgot-password {
+    color: #4a7c59;          /* Color verde */
+    text-decoration: none;   /* Sin subrayado */
+    font-size: 0.95rem;      /* Tamaño de fuente pequeño */
+    font-weight: 500;        /* Peso de fuente medio */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estado hover del link */
+.forgot-password:hover {
+    color: #2d5a27;          /* Verde más oscuro */
+    text-decoration: underline; /* Subrayado en hover */
+}
+
+/* Botón principal de login */
+.btn-login {
+    padding: 18px 35px;      /* Espaciado interno amplio */
+    /* Gradiente de fondo verde */
+    background: linear-gradient(135deg, #4a7c59 0%, #2d5a27 100%);
+    color: white;            /* Texto blanco */
+    border: none;            /* Sin borde */
+    border-radius: 12px;     /* Bordes redondeados */
+    font-size: 1.1rem;       /* Tamaño de fuente */
+    font-weight: 600;        /* Peso de fuente semi-bold */
+    cursor: pointer;         /* Cursor de mano */
+    /* Transición suave con curva personalizada */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 12px;               /* Espacio entre texto e icono */
+    margin-top: 15px;        /* Margen superior */
+    /* Sombra con color verde */
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+}
+
+/* Estado hover del botón login */
+.btn-login:hover {
+    transform: translateY(-3px); /* Mover hacia arriba */
+    /* Sombra más pronunciada */
+    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+    /* Gradiente más oscuro */
+    background: linear-gradient(135deg, #3d6b4a 0%, #1e3a2e 100%);
+}
+
+/* Estado active del botón login */
+.btn-login:active {
+    transform: translateY(-1px); /* Movimiento menor al presionar */
+}
+
+/* Divisor entre login normal y social */
+.divider {
+    text-align: center;      /* Centrar texto */
+    margin: 35px 0;          /* Margen vertical amplio */
+    position: relative;      /* Para la línea de fondo */
+}
+
+/* Línea del divisor */
+.divider::before {
+    content: '';             /* Contenido vacío */
+    position: absolute;      /* Posición absoluta */
+    top: 50%;                /* Centrar verticalmente */
+    left: 0;                 /* Desde la izquierda */
+    right: 0;                /* Hasta la derecha */
+    height: 1px;             /* Altura de línea fina */
+    /* Gradiente que se desvanece en los extremos */
+    background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+}
+
+/* Texto del divisor */
+.divider span {
+    background: white;       /* Fondo blanco para cubrir la línea */
+    padding: 0 20px;         /* Espaciado horizontal */
+    color: #64748b;          /* Color gris */
+    font-size: 0.9rem;       /* Tamaño de fuente pequeño */
+    font-weight: 500;        /* Peso de fuente medio */
+}
+
+/* Contenedor de botones de redes sociales */
+.social-login {
+    display: flex;           /* Layout flexbox */
+    flex-direction: column;  /* Dirección vertical */
+    gap: 15px;               /* Espacio entre botones */
+}
+
+/* Estilos base para botones sociales */
+.btn-google,
+.btn-facebook {
+    padding: 15px 25px;      /* Espaciado interno */
+    border: 2px solid #e2e8f0; /* Borde gris */
+    border-radius: 12px;     /* Bordes redondeados */
+    font-size: 1rem;         /* Tamaño de fuente */
+    font-weight: 500;        /* Peso de fuente medio */
+    cursor: pointer;         /* Cursor de mano */
+    /* Transición suave con curva personalizada */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 12px;               /* Espacio entre icono y texto */
+    background: white;       /* Fondo blanco */
+    /* Sombra sutil */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón específico de Google */
+.btn-google {
+    color: #db4437;          /* Color rojo de Google */
+}
+
+/* Estado hover del botón Google */
+.btn-google:hover {
+    background: #db4437;     /* Fondo rojo */
+    color: white;            /* Texto blanco */
+    border-color: #db4437;   /* Borde rojo */
+    transform: translateY(-2px); /* Mover hacia arriba */
+    /* Sombra roja */
+    box-shadow: 0 8px 20px rgba(219, 68, 55, 0.3);
+}
+
+/* Botón específico de Facebook */
+.btn-facebook {
+    color: #4267B2;          /* Color azul de Facebook */
+}
+
+/* Estado hover del botón Facebook */
+.btn-facebook:hover {
+    background: #4267B2;     /* Fondo azul */
+    color: white;            /* Texto blanco */
+    border-color: #4267B2;   /* Borde azul */
+    transform: translateY(-2px); /* Mover hacia arriba */
+    /* Sombra azul */
+    box-shadow: 0 8px 20px rgba(66, 103, 178, 0.3);
+}
+
+/* ================================================================
+   MODAL DE RECUPERACIÓN DE CONTRASEÑA
+   ================================================================ */
+
+/* Contenedor principal del modal */
+.modal {
+    display: none;           /* Oculto por defecto */
+    position: fixed;         /* Posición fija en pantalla */
+    z-index: 1000;           /* Índice z muy alto */
+    left: 0;                 /* Cubrir desde la izquierda */
+    top: 0;                  /* Cubrir desde arriba */
+    width: 100%;             /* Ancho completo */
+    height: 100%;            /* Alto completo */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(5px); /* Desenfoque del fondo */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: white; /* Fondo blanco */
+    margin: 10% auto;        /* Centrar con margen superior */
+    padding: 40px;           /* Espaciado interno amplio */
+    border-radius: 20px;     /* Bordes muy redondeados */
+    width: 90%;              /* Ancho del 90% */
+    max-width: 450px;        /* Ancho máximo */
+    position: relative;      /* Para el botón de cerrar */
+    /* Sombra pronunciada */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out; /* Animación de entrada */
+}
+
+/* Botón de cerrar modal */
+.close {
+    position: absolute;      /* Posición absoluta */
+    top: 20px;               /* Posición desde arriba */
+    right: 25px;             /* Posición desde la derecha */
+    color: #64748b;          /* Color gris */
+    font-size: 28px;         /* Tamaño grande */
+    font-weight: bold;       /* Peso bold */
+    cursor: pointer;         /* Cursor de mano */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estado hover del botón cerrar */
+.close:hover {
+    color: #e74c3c;          /* Color rojo en hover */
+    transform: scale(1.1);   /* Escalar ligeramente */
+}
+
+/* Encabezado del modal */
+.modal-header {
+    text-align: center;      /* Centrar texto */
+    margin-bottom: 30px;     /* Margen inferior */
+}
+
+/* Título del modal */
+.modal-header h3 {
+    color: #1e3a2e;          /* Color verde oscuro */
+    font-size: 1.8rem;       /* Tamaño de fuente grande */
+    font-weight: 700;        /* Peso bold */
+    margin-bottom: 15px;     /* Margen inferior */
+}
+
+/* Párrafo del modal */
+.modal-header p {
+    color: #64748b;          /* Color gris */
+    font-size: 1rem;         /* Tamaño de fuente normal */
+    line-height: 1.5;        /* Altura de línea cómoda */
+    font-weight: 400;        /* Peso normal */
+}
+
+/* Botón de enviar en el modal */
+.btn-send {
+    width: 100%;             /* Ancho completo */
+    padding: 18px;           /* Espaciado interno */
+    /* Gradiente verde */
+    background: linear-gradient(135deg, #4a7c59 0%, #2d5a27 100%);
+    color: white;            /* Texto blanco */
+    border: none;            /* Sin borde */
+    border-radius: 12px;     /* Bordes redondeados */
+    font-size: 1.1rem;       /* Tamaño de fuente */
+    font-weight: 600;        /* Peso semi-bold */
+    cursor: pointer;         /* Cursor de mano */
+    /* Transición suave con curva personalizada */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;           /* Layout flexbox */
+    align-items: center;     /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 12px;               /* Espacio entre elementos */
+    margin-top: 20px;        /* Margen superior */
+    /* Sombra verde */
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+}
+
+/* Estado hover del botón enviar */
+.btn-send:hover {
+    transform: translateY(-3px); /* Mover hacia arriba */
+    /* Sombra más pronunciada */
+    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+}
+
+/* ================================================================
+  ANIMACIONES KEYFRAMES
+  ================================================================ */
+
+/* Animación de aparición gradual */
+@keyframes fadeIn {
+   from { opacity: 0; }     /* Desde transparente */
+   to { opacity: 1; }       /* Hasta opaco */
+}
+
+/* Animación de deslizamiento hacia abajo */
+@keyframes slideIn {
+   from { 
+       transform: translateY(-30px); /* Desde arriba */
+       opacity: 0;          /* Transparente */
+   }
+   to { 
+       transform: translateY(0);     /* Posición normal */
+       opacity: 1;          /* Completamente visible */
+   }
+}
+
+/* Animación de aparición desde abajo */
+@keyframes fadeInUp {
+   from {
+       opacity: 0;                   /* Transparente */
+       transform: translateY(30px);  /* Desde abajo */
+   }
+   to {
+       opacity: 1;                   /* Completamente visible */
+       transform: translateY(0);     /* Posición normal */
+   }
+}
+
+/* ================================================================
+  RESPONSIVE DESIGN - TABLETS
+  ================================================================ */
+@media (max-width: 1024px) {
+   /* Ajustes para la sección izquierda en tablets */
+   .left-section {
+       padding: 60px 40px;          /* Reducir padding */
+   }
+   
+   /* Ajustes para la sección derecha en tablets */
+   .right-section {
+       padding: 40px;               /* Reducir padding */
+   }
+}
+
+/* ================================================================
+  RESPONSIVE DESIGN - MÓVILES
+  ================================================================ */
+@media (max-width: 768px) {
+   /* Cambiar el layout a columna para móviles */
+   .container {
+       flex-direction: column;      /* Stack vertical */
+   }
+   
+   /* Ajustes para la sección izquierda en móviles */
+   .left-section {
+       padding: 40px 25px;          /* Padding más pequeño */
+       text-align: center;          /* Centrar texto */
+       min-height: 50vh;            /* Altura mínima */
+   }
+   
+   /* Título principal más pequeño */
+   .left-section h1 {
+       font-size: 2.5rem;           /* Reducir tamaño de fuente */
+   }
+   
+   /* Ajustes para la sección derecha en móviles */
+   .right-section {
+       padding: 40px 25px;          /* Padding reducido */
+       box-shadow: none;            /* Quitar sombra */
+   }
+   
+   /* Título del formulario más pequeño */
+   .form-header h2 {
+       font-size: 2rem;             /* Reducir tamaño de fuente */
+   }
+   
+   /* Ajustes para la sección de beneficios */
+   .benefits {
+       margin-top: 30px;            /* Reducir margen superior */
+   }
+   
+   /* Items de beneficios con padding reducido */
+   .benefit-item {
+       padding: 15px;               /* Padding más pequeño */
+   }
+   
+   /* Efecto hover más sutil en móviles */
+   .benefit-item:hover {
+       transform: translateY(-5px); /* Movimiento hacia arriba más sutil */
+   }
+   
+   /* Opciones del formulario en columna */
+   .form-options {
+       flex-direction: column;      /* Disposición vertical */
+       gap: 20px;                   /* Espacio entre elementos */
+       align-items: flex-start;     /* Alineación izquierda */
+   }
+}
+
+/* ================================================================
+  RESPONSIVE DESIGN - MÓVILES PEQUEÑOS
+  ================================================================ */
+@media (max-width: 480px) {
+   /* Sección izquierda para pantallas muy pequeñas */
+   .left-section {
+       padding: 30px 20px;          /* Padding mínimo */
+   }
+   
+   /* Título principal aún más pequeño */
+   .left-section h1 {
+       font-size: 2rem;             /* Tamaño mínimo legible */
+   }
+   
+   /* Logo más pequeño */
+   .logo span {
+       font-size: 1.8rem;           /* Reducir tamaño del logo */
+   }
+   
+   /* Sección derecha para pantallas muy pequeñas */
+   .right-section {
+       padding: 30px 20px;          /* Padding mínimo */
+   }
+   
+   /* Título del formulario más pequeño */
+   .form-header h2 {
+       font-size: 1.8rem;           /* Tamaño reducido */
+   }
+   
+   /* Contenido del modal ajustado */
+   .modal-content {
+       padding: 30px 25px;          /* Padding reducido */
+       margin: 15% auto;            /* Margen superior reducido */
+   }
+   
+   /* Inputs más compactos */
+   .input-container input {
+       padding: 15px 15px 15px 45px; /* Padding ajustado */
+   }
+   
+   /* Botones más compactos */
+   .btn-login,
+   .btn-send {
+       padding: 15px 25px;          /* Padding reducido */
+   }
+}
+
+
+/* ================================================================
+   ESTILOS PARA EL BOTÓN DE REGISTRO
+   ================================================================
+   Agregar este CSS al final del archivo login-trabajador.css
+   o en un archivo separado e importarlo.
+   ================================================================ */
+
+/* Botón de registro con paleta verde más clara */
+.btn-register {
+    padding: 18px 35px;              /* Mismo padding que btn-login */
+    /* Gradiente verde más claro que el botón de login */
+    background: linear-gradient(135deg, #90EE90 0%, #66b266 100%);
+    color: #1e3a2e;                  /* Texto verde oscuro para contraste */
+    border: none;                    /* Sin borde */
+    border-radius: 12px;             /* Bordes redondeados igual */
+    font-size: 1.1rem;               /* Mismo tamaño de fuente */
+    font-weight: 600;                /* Mismo peso de fuente */
+    cursor: pointer;                 /* Cursor de mano */
+    /* Misma transición suave */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;                   /* Layout flexbox */
+    align-items: center;             /* Centrar verticalmente */
+    justify-content: center;         /* Centrar horizontalmente */
+    gap: 12px;                       /* Espacio entre icono y texto */
+    margin-top: 15px;                /* Margen superior */
+    width: 100%;                     /* Ancho completo */
+    /* Sombra con color verde claro */
+    box-shadow: 0 4px 15px rgba(144, 238, 144, 0.4);
+}
+
+/* Estado hover del botón registro */
+.btn-register:hover {
+    transform: translateY(-3px);     /* Mover hacia arriba */
+    /* Gradiente verde más intenso en hover */
+    background: linear-gradient(135deg, #7dd87d 0%, #4a9c4a 100%);
+    color: #ffffff;                  /* Texto blanco en hover */
+    /* Sombra más pronunciada */
+    box-shadow: 0 8px 25px rgba(144, 238, 144, 0.5);
+}
+
+/* Estado active del botón registro */
+.btn-register:active {
+    transform: translateY(-1px);     /* Movimiento menor al presionar */
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+    .btn-register {
+        padding: 15px 25px;          /* Padding reducido para móviles */
+    }
+}
+
